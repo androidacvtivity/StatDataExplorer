@@ -1,4 +1,4 @@
-package com.bancusoft.statdataexplorer
+package com.bancusoft.statdataexplorer.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
