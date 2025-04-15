@@ -1,5 +1,6 @@
 package com.bancusoft.statdataexplorer.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.cardViewScientists.setOnClickListener(v -> {
             Toast.makeText(this, "Se încarcă lista...", Toast.LENGTH_SHORT).show();
-            // În viitor: startActivity(new Intent(this, ScientistsListActivity.class));
+            startActivity(new Intent(MainActivity.this, ScientistsListActivity.class));
         });
     }
 }
