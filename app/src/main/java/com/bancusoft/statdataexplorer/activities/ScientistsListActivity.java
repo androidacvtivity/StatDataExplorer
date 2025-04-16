@@ -51,6 +51,9 @@ public class ScientistsListActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
     }
 
     private void loadAllData() {
@@ -92,13 +95,14 @@ public class ScientistsListActivity extends AppCompatActivity {
 
         RestApi api = retrofit.create(RestApi.class);
 
-        api.searchCompanies("GET_PAGINATED_SEARCHVW", query, 1000, 0).enqueue(new Callback<ResponseModel>() {
+        api.searchCompanies("GET_PAGINATED_SEARCHVW", query, 100, 0).enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<CompanyModel> list = response.body().getResult();
                     if (list != null && !list.isEmpty()) {
                         CompanyAdapter adapter = new CompanyAdapter(ScientistsListActivity.this, list);
+                        adapter.setSearchText(query); // 🟡 adaugă linia aceasta
                         recyclerView.setAdapter(adapter);
                     } else {
                         Toast.makeText(ScientistsListActivity.this, "Niciun rezultat găsit.", Toast.LENGTH_SHORT).show();
@@ -114,4 +118,5 @@ public class ScientistsListActivity extends AppCompatActivity {
             }
         });
     }
+
 }

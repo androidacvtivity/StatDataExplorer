@@ -38,11 +38,7 @@ public class CompanyModel implements Serializable {
     @SerializedName("act")
     private final String act;
 
-    @SerializedName("TELEFON_VW")
-    private final String telefon;
 
-    @SerializedName("EMAIL_VW")
-    private final String email;
 
     public CompanyModel(String denumire, String idno, String adresa, String formaOrganizare,
                         String conditii, String fondatori, String activitatiFaraLicenta,
@@ -58,8 +54,7 @@ public class CompanyModel implements Serializable {
         this.statutul = statutul;
         this.dataInregistrarii = dataInregistrarii;
         this.act = act;
-        this.telefon = telefon;
-        this.email = email;
+
     }
 
     public String getDenumire() { return denumire; }
@@ -73,8 +68,6 @@ public class CompanyModel implements Serializable {
     public String getStatutul() { return statutul; }
     public String getDataInregistrarii() { return dataInregistrarii; }
     public String getAct() { return act; }
-    public String getTelefon() { return telefon; }
-    public String getEmail() { return email; }
 
     @Override
     public String toString() {
