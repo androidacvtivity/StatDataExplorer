@@ -45,6 +45,9 @@ public class ScientistsListActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {
+                    loadAllData();
+                }
                 return false;
             }
         });
