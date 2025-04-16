@@ -2,12 +2,14 @@
 package com.bancusoft.statdataexplorer.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bancusoft.statdataexplorer.R;
+import com.bancusoft.statdataexplorer.activities.CompanyDetailsActivity;
 import com.bancusoft.statdataexplorer.models.CompanyModel;
 import java.util.List;
 
@@ -41,6 +43,12 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         holder.txtStatut.setText(c.getStatutul());
         holder.txtData.setText(c.getDataInregistrarii());
         holder.txtAct.setText(c.getAct());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CompanyDetailsActivity.class);
+            intent.putExtra("company", companyList.get(position));
+            context.startActivity(intent);
+        });
     }
 
     @Override
