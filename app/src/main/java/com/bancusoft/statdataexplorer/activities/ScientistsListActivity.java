@@ -1,18 +1,24 @@
-// ScientistsListActivity.java
 package com.bancusoft.statdataexplorer.activities;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bancusoft.statdataexplorer.R;
 import com.bancusoft.statdataexplorer.adapters.CompanyAdapter;
 import com.bancusoft.statdataexplorer.models.CompanyModel;
 import com.bancusoft.statdataexplorer.models.ResponseModel;
 import com.bancusoft.statdataexplorer.network.RestApi;
+
 import java.util.List;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +28,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ScientistsListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private SearchView searchView;
+    private EditText editSearch;
+    private CompanyAdapter adapter;
     private static final String BASE_URL = "http://bancusoft.com/PHP/production/";
 
     @Override
@@ -31,29 +38,25 @@ public class ScientistsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scientists_list);
 
         recyclerView = findViewById(R.id.recyclerView);
-        searchView = findViewById(R.id.searchView);
+        editSearch = findViewById(R.id.editSearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         loadAllData();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        editSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                searchCompany(query);
-                return true;
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.isEmpty()) {
-                    loadAllData();
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (adapter != null) {
+                    adapter.filter(s.toString().trim().toLowerCase(Locale.getDefault()));
                 }
-                return false;
             }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
         });
-
-
-
     }
 
     private void loadAllData() {
@@ -70,7 +73,7 @@ public class ScientistsListActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     List<CompanyModel> list = response.body().getResult();
                     if (list != null && !list.isEmpty()) {
-                        CompanyAdapter adapter = new CompanyAdapter(ScientistsListActivity.this, list);
+                        adapter = new CompanyAdapter(ScientistsListActivity.this, list);
                         recyclerView.setAdapter(adapter);
                     } else {
                         Toast.makeText(ScientistsListActivity.this, "Lista este goală sau nulă", Toast.LENGTH_SHORT).show();
@@ -86,37 +89,4 @@ public class ScientistsListActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void searchCompany(String query) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RestApi api = retrofit.create(RestApi.class);
-
-        api.searchCompanies("GET_PAGINATED_SEARCHVW", query, 100, 0).enqueue(new Callback<ResponseModel>() {
-            @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<CompanyModel> list = response.body().getResult();
-                    if (list != null && !list.isEmpty()) {
-                        CompanyAdapter adapter = new CompanyAdapter(ScientistsListActivity.this, list);
-                        adapter.setSearchText(query); // 🟡 adaugă linia aceasta
-                        recyclerView.setAdapter(adapter);
-                    } else {
-                        Toast.makeText(ScientistsListActivity.this, "Niciun rezultat găsit.", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(ScientistsListActivity.this, "Eroare la răspuns.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
-                Toast.makeText(ScientistsListActivity.this, "Eșec rețea: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
 }
