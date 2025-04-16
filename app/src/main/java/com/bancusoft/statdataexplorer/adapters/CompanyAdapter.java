@@ -18,6 +18,7 @@ import com.bancusoft.statdataexplorer.R;
 import com.bancusoft.statdataexplorer.activities.CompanyDetailsActivity;
 import com.bancusoft.statdataexplorer.models.CompanyModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,13 +28,21 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
     private final List<CompanyModel> companyList;
     private String searchText = "";
 
+
+    private List<CompanyModel> originalList;
+    private List<CompanyModel> filteredList;
+
     public CompanyAdapter(Context context, List<CompanyModel> companyList) {
         this.context = context;
         this.companyList = companyList;
+        this.originalList = new ArrayList<>(companyList);
+        this.filteredList = new ArrayList<>(companyList);
     }
 
+
     public void setSearchText(String searchText) {
-        this.searchText = searchText.toLowerCase(Locale.getDefault()).trim();
+        this.searchText = searchText != null ? searchText.toLowerCase(Locale.getDefault()).trim() : "";
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -45,12 +54,16 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull CompanyAdapter.ViewHolder holder, int position) {
-        CompanyModel company = companyList.get(position);
+        CompanyModel company = filteredList.get(position);
 
-        highlightText(holder.tvDenumire, company.getDenumire(), searchText);
-        highlightText(holder.tvIdno, company.getIdno(), searchText);
-        highlightText(holder.tvConditii, company.getConditii(), searchText);
-        highlightText(holder.tvFondatori, company.getFondatori(), searchText);
+//        highlightText(holder.tvDenumire, company.getDenumire(), searchText);
+        highlightTextExact(holder.tvDenumire, company.getDenumire(), searchText);
+//        highlightText(holder.tvIdno, company.getIdno(), searchText);
+//        highlightText(holder.tvConditii, company.getConditii(), searchText);
+//        highlightText(holder.tvFondatori, company.getFondatori(), searchText);
+        highlightTextExact(holder.tvIdno, company.getIdno(), searchText);
+        highlightTextExact(holder.tvConditii, company.getConditii(), searchText);
+        highlightTextExact(holder.tvFondatori, company.getFondatori(), searchText);
 
         holder.tvAdresa.setText(company.getAdresa());
         holder.tvForma.setText(company.getFormaOrganizare());
@@ -68,9 +81,30 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         });
     }
 
+    public void filter(String query) {
+        searchText = query; // pentru highlight
+        filteredList.clear();
+
+        if (query.isEmpty()) {
+            filteredList.addAll(originalList);
+        } else {
+            for (CompanyModel item : originalList) {
+                if (item.getDenumire().toLowerCase().contains(query) ||
+                        item.getIdno().toLowerCase().contains(query) ||
+                        item.getConditii().toLowerCase().contains(query) ||
+                        item.getFondatori().toLowerCase().contains(query)) {
+                    filteredList.add(item);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public int getItemCount() {
-        return companyList != null ? companyList.size() : 0;
+        return filteredList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -114,4 +148,29 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         spanString.setSpan(new ForegroundColorSpan(Color.BLACK), startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(spanString);
     }
+
+    private void highlightTextExact(TextView textView, String fullText, String searchText) {
+        if (searchText == null || searchText.isEmpty()) {
+            textView.setText(fullText);
+            return;
+        }
+
+        String lowerFullText = fullText.toLowerCase(Locale.getDefault());
+        String lowerSearchText = searchText.toLowerCase(Locale.getDefault());
+
+        int startPos = lowerFullText.indexOf(lowerSearchText);
+        if (startPos == -1) {
+            textView.setText(fullText);
+            return;
+        }
+
+        int endPos = startPos + lowerSearchText.length();
+
+        Spannable spannable = Spannable.Factory.getInstance().newSpannable(fullText);
+        spannable.setSpan(new BackgroundColorSpan(Color.YELLOW), startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(Color.BLACK), startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        textView.setText(spannable);
+    }
+
 }

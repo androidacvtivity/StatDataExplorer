@@ -5,12 +5,17 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+    <EditText
+        android:id="@+id/editSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="Caută după denumire, IDNO, adresă..."
-        android:iconifiedByDefault="false" />
+        android:hint="Caută..."
+        android:drawableEnd="@android:drawable/ic_menu_close_clear_cancel"
+        android:padding="12dp"
+        android:background="@android:drawable/edit_text"
+        android:inputType="text"
+        android:layout_margin="8dp"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
