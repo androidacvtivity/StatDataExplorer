@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="4dp"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView android:id="@+id/txtDenumire" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textStyle="bold" android:textSize="16sp" android:text="Denumire companie" />
+        <TextView android:id="@+id/txtIdno" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="IDNO" android:textColor="#555" />
+        <TextView android:id="@+id/txtAdresa" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Adresa" android:textColor="#555" />
+        <TextView android:id="@+id/txtForma" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Forma organizare" />
+        <TextView android:id="@+id/txtConditii" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Condiții" />
+        <TextView android:id="@+id/txtFondatori" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Fondatori" />
+        <TextView android:id="@+id/txtFaraLicenta" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Activități fără licență" />
+        <TextView android:id="@+id/txtCuLicenta" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Activități cu licență" />
+        <TextView android:id="@+id/txtStatut" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Statutul" android:textColor="#888" />
+        <TextView android:id="@+id/txtData" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Data înregistrării" />
+        <TextView android:id="@+id/txtAct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Act" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
