@@ -37,7 +37,7 @@ public class ScientistsListActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        searchView.setQueryHint("Caută după denumire, IDNO, condiții, fondatori");
+        searchView.setQueryHint("Caută după denumire, IDNO, conducători, fondatori");
         searchView.setIconifiedByDefault(false);
         searchView.clearFocus(); // ca să nu sară tastatura
 
