@@ -10,53 +10,52 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bancusoft.statdataexplorer.R;
 import com.bancusoft.statdataexplorer.activities.CompanyDetailsActivity;
 import com.bancusoft.statdataexplorer.models.CompanyModel;
-import java.util.List;
-import java.util.Locale;
 
-public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHolder> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder> {
 
     private final Context context;
-    private final List<CompanyModel> companyList;
-    private final String searchString;
+    private final List<CompanyModel> originalList;
+    private final List<CompanyModel> filteredList;
+    private String searchText = "";
 
     public CompanyAdapter(Context context, List<CompanyModel> companyList) {
-        this(context, companyList, "");
-    }
-
-    public CompanyAdapter(Context context, List<CompanyModel> companyList, String searchString) {
         this.context = context;
-        this.companyList = companyList;
-        this.searchString = searchString.toLowerCase(Locale.getDefault());
+        this.originalList = new ArrayList<>(companyList);
+        this.filteredList = new ArrayList<>(companyList);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CompanyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_company, parent, false);
-        return new ViewHolder(view);
+        return new CompanyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CompanyModel company = companyList.get(position);
+    public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
+        CompanyModel company = filteredList.get(position);
 
-        highlightText(holder.tvDenumire, company.getDenumire());
-        highlightText(holder.tvIdno, company.getIdno());
-        highlightText(holder.tvConditii, company.getConditii());
-        highlightText(holder.tvFondatori, company.getFondatori());
-
-        holder.txtAdresa.setText(company.getAdresa());
-        holder.txtForma.setText(company.getFormaOrganizare());
-        holder.txtFaraLicenta.setText(company.getActivitatiFaraLicenta());
-        holder.txtCuLicenta.setText(company.getActivitatiCuLicenta());
-        holder.txtStatut.setText(company.getStatutul());
-        holder.txtData.setText(company.getDataInregistrarii());
-        holder.txtAct.setText(company.getAct());
+        holder.tvDenumire.setText(getHighlightedText(company.getDenumire(), searchText, Color.YELLOW));
+        holder.tvIdno.setText(getHighlightedText(company.getIdno(), searchText, Color.CYAN));
+        holder.tvConditii.setText(getHighlightedText(company.getConditii(), searchText, Color.GREEN));
+        holder.tvFondatori.setText(getHighlightedText(company.getFondatori(), searchText, Color.MAGENTA));
+        holder.tvAdresa.setText(company.getAdresa());
+        holder.tvForma.setText(company.getFormaOrganizare());
+        holder.tvFaraLicenta.setText(company.getActivitatiFaraLicenta());
+        holder.tvCuLicenta.setText(company.getActivitatiCuLicenta());
+        holder.tvStatut.setText(company.getStatutul());
+        holder.tvData.setText(company.getDataInregistrarii());
+        holder.tvAct.setText(company.getAct());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, CompanyDetailsActivity.class);
@@ -65,45 +64,61 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         });
     }
 
-    private void highlightText(TextView textView, String text) {
-        if (searchString.isEmpty() || text == null) {
-            textView.setText(text);
-            return;
-        }
-        String lowerText = text.toLowerCase(Locale.getDefault());
-        int start = lowerText.indexOf(searchString);
-        if (start < 0) {
-            textView.setText(text);
-            return;
-        }
-        int end = start + searchString.length();
-        SpannableString spannable = new SpannableString(text);
-        spannable.setSpan(new ForegroundColorSpan(Color.YELLOW), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView.setText(spannable);
-    }
-
     @Override
     public int getItemCount() {
-        return companyList.size();
+        return filteredList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDenumire, tvIdno, tvConditii, tvFondatori;
-        TextView txtAdresa, txtForma, txtFaraLicenta, txtCuLicenta, txtStatut, txtData, txtAct;
+    public void filter(String query) {
+        searchText = query.toLowerCase();
+        filteredList.clear();
 
-        public ViewHolder(@NonNull View itemView) {
+        if (searchText.isEmpty()) {
+            filteredList.addAll(originalList);
+        } else {
+            for (CompanyModel item : originalList) {
+                if ((item.getDenumire() != null && item.getDenumire().toLowerCase().contains(searchText)) ||
+                        (item.getIdno() != null && item.getIdno().toLowerCase().contains(searchText)) ||
+                        (item.getConditii() != null && item.getConditii().toLowerCase().contains(searchText)) ||
+                        (item.getFondatori() != null && item.getFondatori().toLowerCase().contains(searchText))) {
+                    filteredList.add(item);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
+    }
+
+    private Spannable getHighlightedText(String original, String query, int color) {
+        if (original == null) return new SpannableString("");
+        Spannable spannable = new SpannableString(original);
+        if (query == null || query.isEmpty()) return spannable;
+
+        String lower = original.toLowerCase();
+        int start = lower.indexOf(query);
+        if (start >= 0) {
+            spannable.setSpan(new ForegroundColorSpan(color), start, start + query.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return spannable;
+    }
+
+    static class CompanyViewHolder extends RecyclerView.ViewHolder {
+        TextView tvDenumire, tvIdno, tvConditii, tvFondatori, tvAdresa, tvForma,
+                tvFaraLicenta, tvCuLicenta, tvStatut, tvData, tvAct;
+
+        public CompanyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDenumire = itemView.findViewById(R.id.txtDenumire);
             tvIdno = itemView.findViewById(R.id.txtIdno);
             tvConditii = itemView.findViewById(R.id.txtConditii);
             tvFondatori = itemView.findViewById(R.id.txtFondatori);
-            txtAdresa = itemView.findViewById(R.id.txtAdresa);
-            txtForma = itemView.findViewById(R.id.txtForma);
-            txtFaraLicenta = itemView.findViewById(R.id.txtFaraLicenta);
-            txtCuLicenta = itemView.findViewById(R.id.txtCuLicenta);
-            txtStatut = itemView.findViewById(R.id.txtStatut);
-            txtData = itemView.findViewById(R.id.txtData);
-            txtAct = itemView.findViewById(R.id.txtAct);
+            tvAdresa = itemView.findViewById(R.id.txtAdresa);
+            tvForma = itemView.findViewById(R.id.txtForma);
+            tvFaraLicenta = itemView.findViewById(R.id.txtFaraLicenta);
+            tvCuLicenta = itemView.findViewById(R.id.txtCuLicenta);
+            tvStatut = itemView.findViewById(R.id.txtStatut);
+            tvData = itemView.findViewById(R.id.txtData);
+            tvAct = itemView.findViewById(R.id.txtAct);
         }
     }
 }
