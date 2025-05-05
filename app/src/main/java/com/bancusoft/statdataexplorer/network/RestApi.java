@@ -8,15 +8,16 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RestApi {
+
     @GET("index_view.php")
-    Call<ResponseModel> getViewData();
+    Call<ResponseModel> retrievevw();  // folosit doar la prima încărcare
 
     @FormUrlEncoded
     @POST("index_view.php")
-    Call<ResponseModel> searchCompanies(
-            @Field("actionvw") String action,
-            @Field("queryvw") String query,
-            @Field("limitvw") int limit,
-            @Field("startvw") int start
+    Call<ResponseModel> searchvw(
+            @Field("actionvw") String actionvw,
+            @Field("queryvw") String queryvw,
+            @Field("startvw") String startvw,
+            @Field("limitvw") String limitvw
     );
 }
