@@ -11,6 +11,8 @@ import com.bancusoft.statdataexplorer.adapters.CompanyAdapter;
 import com.bancusoft.statdataexplorer.models.CompanyModel;
 import com.bancusoft.statdataexplorer.models.ResponseModel;
 import com.bancusoft.statdataexplorer.network.RestApi;
+
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +26,7 @@ public class ScientistsListActivity extends AppCompatActivity {
     private SearchView searchView;
     private static final String BASE_URL = "http://bancusoft.com/PHP/production/";
     private CompanyAdapter adapter;
-    private List<CompanyModel> companyList; // păstrăm lista originală
+    private List<CompanyModel> companyList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +43,14 @@ public class ScientistsListActivity extends AppCompatActivity {
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                adapter.filter(query);
+            public boolean onQueryTextChange(String newText) {
+                adapter.filter(newText);  // ← doar local
                 return true;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.filter(newText); // Căutare live
-                return true;
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
         });
     }

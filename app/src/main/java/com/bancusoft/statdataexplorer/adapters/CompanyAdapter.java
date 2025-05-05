@@ -20,13 +20,15 @@ import com.bancusoft.statdataexplorer.models.CompanyModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder> {
 
     private final Context context;
     private final List<CompanyModel> originalList;
     private final List<CompanyModel> filteredList;
-    private String searchText = "";
+
+    private String searchQuery = "";
 
     public CompanyAdapter(Context context, List<CompanyModel> companyList) {
         this.context = context;
@@ -45,10 +47,10 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
     public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
         CompanyModel company = filteredList.get(position);
 
-        holder.tvDenumire.setText(getHighlightedText(company.getDenumire(), searchText, Color.YELLOW));
-        holder.tvIdno.setText(getHighlightedText(company.getIdno(), searchText, Color.CYAN));
-        holder.tvConditii.setText(getHighlightedText(company.getConditii(), searchText, Color.GREEN));
-        holder.tvFondatori.setText(getHighlightedText(company.getFondatori(), searchText, Color.MAGENTA));
+        holder.tvDenumire.setText(getHighlightedText(company.getDenumire(), searchQuery, Color.YELLOW));
+        holder.tvIdno.setText(getHighlightedText(company.getIdno(), searchQuery, Color.CYAN));
+        holder.tvConditii.setText(getHighlightedText(company.getConditii(), searchQuery, Color.GREEN));
+        holder.tvFondatori.setText(getHighlightedText(company.getFondatori(), searchQuery, Color.MAGENTA));
         holder.tvAdresa.setText(company.getAdresa());
         holder.tvForma.setText(company.getFormaOrganizare());
         holder.tvFaraLicenta.setText(company.getActivitatiFaraLicenta());
@@ -70,22 +72,20 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
     }
 
     public void filter(String query) {
-        searchText = query.toLowerCase();
+        searchQuery = query.toLowerCase(Locale.getDefault());
         filteredList.clear();
-
-        if (searchText.isEmpty()) {
+        if (query.isEmpty()) {
             filteredList.addAll(originalList);
         } else {
             for (CompanyModel item : originalList) {
-                if ((item.getDenumire() != null && item.getDenumire().toLowerCase().contains(searchText)) ||
-                        (item.getIdno() != null && item.getIdno().toLowerCase().contains(searchText)) ||
-                        (item.getConditii() != null && item.getConditii().toLowerCase().contains(searchText)) ||
-                        (item.getFondatori() != null && item.getFondatori().toLowerCase().contains(searchText))) {
+                if ((item.getDenumire() != null && item.getDenumire().toLowerCase().contains(searchQuery)) ||
+                        (item.getIdno() != null && item.getIdno().toLowerCase().contains(searchQuery)) ||
+                        (item.getConditii() != null && item.getConditii().toLowerCase().contains(searchQuery)) ||
+                        (item.getFondatori() != null && item.getFondatori().toLowerCase().contains(searchQuery))) {
                     filteredList.add(item);
                 }
             }
         }
-
         notifyDataSetChanged();
     }
 
