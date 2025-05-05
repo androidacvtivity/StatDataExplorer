@@ -12,8 +12,8 @@ import com.bancusoft.statdataexplorer.models.CompanyModel;
 import com.bancusoft.statdataexplorer.models.ResponseModel;
 import com.bancusoft.statdataexplorer.network.RestApi;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,9 +24,10 @@ public class ScientistsListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private SearchView searchView;
-    private static final String BASE_URL = "http://bancusoft.com/PHP/production/";
     private CompanyAdapter adapter;
-    private List<CompanyModel> companyList = new ArrayList<>();
+    private static final String BASE_URL = "http://bancusoft.com/PHP/production/";
+
+    private RestApi api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,44 +36,45 @@ public class ScientistsListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         searchView = findViewById(R.id.searchView);
-        searchView.setIconified(false); // <- Asta îl face expandat de la început
-        searchView.setQueryHint("Caută după denumire, IDNO, condiții, fondatori");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        loadAllData();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.filter(newText);  // ← doar local
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-        });
-    }
-
-    private void loadAllData() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RestApi api = retrofit.create(RestApi.class);
+        api = retrofit.create(RestApi.class);
 
-        api.getViewData().enqueue(new Callback<ResponseModel>() {
+        // Încărcare inițială fără filtru
+        searchCompany("");
+
+        // Căutare live
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchCompany(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchCompany(newText); // Live
+                return true;
+            }
+        });
+    }
+
+    private void searchCompany(String query) {
+        api.searchvw("GET_PAGINATED_SEARCHVW", query, "0", "200").enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    companyList = response.body().getResult();
-                    if (companyList != null && !companyList.isEmpty()) {
-                        adapter = new CompanyAdapter(ScientistsListActivity.this, companyList);
+                    List<CompanyModel> list = response.body().getResult();
+                    if (list != null && !list.isEmpty()) {
+                        adapter = new CompanyAdapter(ScientistsListActivity.this, list, query.toLowerCase());
                         recyclerView.setAdapter(adapter);
                     } else {
-                        Toast.makeText(ScientistsListActivity.this, "Lista este goală.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ScientistsListActivity.this, "Niciun rezultat găsit.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(ScientistsListActivity.this, "Eroare la răspuns.", Toast.LENGTH_SHORT).show();

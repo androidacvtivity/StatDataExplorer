@@ -30,10 +30,23 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
 
     private String searchQuery = "";
 
+//    public CompanyAdapter(Context context, List<CompanyModel> companyList) {
+//        this.context = context;
+//        this.originalList = new ArrayList<>(companyList);
+//        this.filteredList = new ArrayList<>(companyList);
+//    }
+
+    // Constructor cu 2 parametri
     public CompanyAdapter(Context context, List<CompanyModel> companyList) {
+        this(context, companyList, "");
+    }
+
+    // Constructor cu 3 parametri pentru suport query direct
+    public CompanyAdapter(Context context, List<CompanyModel> companyList, String searchQuery) {
         this.context = context;
         this.originalList = new ArrayList<>(companyList);
         this.filteredList = new ArrayList<>(companyList);
+        this.searchQuery = searchQuery.toLowerCase(Locale.getDefault());
     }
 
     @NonNull
