@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="4dp"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView android:id="@+id/txtName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nume" android:textStyle="bold" android:textSize="16sp" />
+        <TextView android:id="@+id/txtDescription" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Descriere" />
+        <TextView android:id="@+id/txtGalaxy" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Galaxy" />
+        <TextView android:id="@+id/txtStar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Star" />
+        <TextView android:id="@+id/txtServiciu" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Serviciu" />
+        <TextView android:id="@+id/txtSectia" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Secția" />
+        <TextView android:id="@+id/txtDepart" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Departament" />
+        <TextView android:id="@+id/txtPhone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Telefon" />
+        <TextView android:id="@+id/txtPhoneInternal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Telefon Intern" />
+        <TextView android:id="@+id/txtEmail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Email" />
+        <TextView android:id="@+id/txtPersonalInfo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Info Personal" />
+        <TextView android:id="@+id/txtFormName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Formular" />
+        <TextView android:id="@+id/txtPhoneMobil" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Telefon Mobil" />
+        <TextView android:id="@+id/txtFloor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Etaj" />
+        <TextView android:id="@+id/txtOffice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Birou" />
+        <TextView android:id="@+id/txtNotice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Notă" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

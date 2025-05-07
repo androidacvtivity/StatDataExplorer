@@ -29,6 +29,8 @@
 
         <activity android:name=".activities.ScientistsListActivity" />
         <activity android:name=".activities.CompanyDetailsActivity" />
+        <activity android:name=".activities.EmployeesListActivity" />
+        <activity android:name=".activities.EmployeeDetailsActivity" />
     </application>
 
 </manifest>

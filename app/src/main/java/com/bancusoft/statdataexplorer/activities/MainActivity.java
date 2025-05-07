@@ -13,12 +13,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.bancusoft.statdataexplorer.databinding.ActivityMainBinding binding =
+                com.bancusoft.statdataexplorer.databinding.ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.cardViewScientists.setOnClickListener(v -> {
-            Toast.makeText(this, "Se încarcă lista...", Toast.LENGTH_SHORT).show();
+        // Card: Lista companiilor
+        binding.cardViewCompanies.setOnClickListener(v -> {
+            Toast.makeText(this, "Se încarcă companiile...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, ScientistsListActivity.class));
         });
+
+        // Card: Lista angajaților
+        binding.cardViewScientists.setOnClickListener(v -> {
+            Toast.makeText(this, "Se încarcă lista angajaților...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, EmployeesListActivity.class));
+        });
     }
+
 }
