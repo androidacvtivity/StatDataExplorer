@@ -8,4 +8,5 @@
         <item name="colorAccent">@color/teal_200</item>
     </style>
 
+    <style name="Theme.YourApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar"> </style>
 </resources>

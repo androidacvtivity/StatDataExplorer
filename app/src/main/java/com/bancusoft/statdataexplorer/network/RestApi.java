@@ -1,6 +1,7 @@
 package com.bancusoft.statdataexplorer.network;
 
 import com.bancusoft.statdataexplorer.models.ResponseModel;
+import com.bancusoft.statdataexplorer.models.ResponseModelEmployee;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -20,4 +21,18 @@ public interface RestApi {
             @Field("startvw") String startvw,
             @Field("limitvw") String limitvw
     );
+
+
+    @GET("index.php")
+    Call<ResponseModelEmployee> retrieveEmployees();
+
+    @FormUrlEncoded
+    @POST("index.php")
+    Call<ResponseModelEmployee> searchEmployees(
+            @Field("action") String action,
+            @Field("query") String query,
+            @Field("start") String start,
+            @Field("limit") String limit
+    );
+
 }
