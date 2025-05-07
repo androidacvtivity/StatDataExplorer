@@ -13,26 +13,27 @@ public class CompanyDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_details);
 
+        @SuppressWarnings("deprecation")
         CompanyModel company = (CompanyModel) getIntent().getSerializableExtra("company");
 
-        TextView tvDetails = findViewById(R.id.tvDetails);
-
         if (company != null) {
-            String details = "Denumire: " + company.getDenumire() + "\n" +
-                    "IDNO: " + company.getIdno() + "\n" +
-                    "Adresa: " + company.getAdresa() + "\n" +
-                    "Forma organizare: " + company.getFormaOrganizare() + "\n" +
-                    "Condiții: " + company.getConditii() + "\n" +
-                    "Fondatori: " + company.getFondatori() + "\n" +
-                    "Activități fără licență: " + company.getActivitatiFaraLicenta() + "\n" +
-                    "Activități cu licență: " + company.getActivitatiCuLicenta() + "\n" +
-                    "Statut: " + company.getStatutul() + "\n" +
-                    "Data înregistrării: " + company.getDataInregistrarii() + "\n" +
-                    "Act: " + company.getAct();
-
-            tvDetails.setText(details);
+            ((TextView) findViewById(R.id.tvDenumire)).setText(getSafe(company.getDenumire()));
+            ((TextView) findViewById(R.id.tvIdno)).setText(getSafe(company.getIdno()));
+            ((TextView) findViewById(R.id.tvAdresa)).setText(getSafe(company.getAdresa()));
+            ((TextView) findViewById(R.id.tvForma)).setText(getSafe(company.getFormaOrganizare()));
+            ((TextView) findViewById(R.id.tvConditii)).setText(getSafe(company.getConditii()));
+            ((TextView) findViewById(R.id.tvFondatori)).setText(getSafe(company.getFondatori()));
+            ((TextView) findViewById(R.id.tvFaraLicenta)).setText(getSafe(company.getActivitatiFaraLicenta()));
+            ((TextView) findViewById(R.id.tvCuLicenta)).setText(getSafe(company.getActivitatiCuLicenta()));
+            ((TextView) findViewById(R.id.tvStatut)).setText(getSafe(company.getStatutul()));
+            ((TextView) findViewById(R.id.tvData)).setText(getSafe(company.getDataInregistrarii()));
+            ((TextView) findViewById(R.id.tvAct)).setText(getSafe(company.getAct()));
         } else {
-            tvDetails.setText("Nu s-au găsit date pentru această companie.");
+            finish(); // închidem activitatea dacă nu avem date
         }
+    }
+
+    private String getSafe(String value) {
+        return value != null ? value : "";
     }
 }

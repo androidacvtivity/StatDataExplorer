@@ -1,30 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/white">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:elevation="4dp">
 
-        <TextView android:id="@+id/tvName" android:text="Nume" android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/TextAppearance.AppCompat.Large" />
-        <TextView android:id="@+id/tvDescription" android:text="Descriere" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvGalaxy" android:text="Galaxy" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvStar" android:text="Star" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvServiciu" android:text="Serviciu" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvSectia" android:text="Secția" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvDepart" android:text="Departament" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvPhone" android:text="Telefon" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvPhoneInternal" android:text="Tel. Intern" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvPhonemobil" android:text="Telefon Mobil" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvEmail" android:text="Email" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvPersonalinfo" android:text="Info Personală" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvFormname" android:text="Formular" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvFloor" android:text="Etaj" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvOffice" android:text="Birou" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvNotice" android:text="Notă" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nume"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textStyle="bold"
+            android:paddingTop="8dp" />
 
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginVertical="8dp"/>
+
+        <TextView android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descriere" />
+
+        <TextView android:id="@+id/tvGalaxy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Galaxy" />
+
+        <TextView android:id="@+id/tvStar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Star" />
+
+        <TextView android:id="@+id/tvServiciu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Serviciu" />
+
+        <TextView android:id="@+id/tvSectia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Secția" />
+
+        <TextView android:id="@+id/tvDepart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Departament" />
+
+        <TextView android:id="@+id/tvPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Telefon" />
+
+        <TextView android:id="@+id/tvPhoneInternal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tel. Intern" />
+
+        <TextView android:id="@+id/tvPhonemobil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Telefon Mobil" />
+
+        <TextView android:id="@+id/tvEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email" />
+
+        <TextView android:id="@+id/tvPersonalinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Info personală" />
+
+        <TextView android:id="@+id/tvFormname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Formular" />
+
+        <TextView android:id="@+id/tvFloor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Etaj" />
+
+        <TextView android:id="@+id/tvOffice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Birou" />
+
+        <TextView android:id="@+id/tvNotice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notă"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="italic"
+            android:paddingBottom="16dp"/>
     </LinearLayout>
 </ScrollView>

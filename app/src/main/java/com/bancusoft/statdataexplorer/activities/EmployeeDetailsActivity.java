@@ -1,5 +1,6 @@
 package com.bancusoft.statdataexplorer.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,42 +14,27 @@ public class EmployeeDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_details);
 
-        TextView tvName = findViewById(R.id.tvName);
-        TextView tvDescription = findViewById(R.id.tvDescription);
-        TextView tvGalaxy = findViewById(R.id.tvGalaxy);
-        TextView tvStar = findViewById(R.id.tvStar);
-        TextView tvServiciu = findViewById(R.id.tvServiciu);
-        TextView tvSectia = findViewById(R.id.tvSectia);
-        TextView tvDepart = findViewById(R.id.tvDepart);
-        TextView tvPhone = findViewById(R.id.tvPhone);
-        TextView tvPhoneInternal = findViewById(R.id.tvPhoneInternal);
-        TextView tvPhonemobil = findViewById(R.id.tvPhonemobil);
-        TextView tvEmail = findViewById(R.id.tvEmail);
-        TextView tvPersonalinfo = findViewById(R.id.tvPersonalinfo);
-        TextView tvFormname = findViewById(R.id.tvFormname);
-        TextView tvFloor = findViewById(R.id.tvFloor);
-        TextView tvOffice = findViewById(R.id.tvOffice);
-        TextView tvNotice = findViewById(R.id.tvNotice);
-
+        @SuppressWarnings("deprecation")
         EmployeeModel emp = (EmployeeModel) getIntent().getSerializableExtra("employee");
 
-        if (emp != null) {
-            tvName.setText(emp.getName());
-            tvDescription.setText(emp.getDescription());
-            tvGalaxy.setText(emp.getGalaxy());
-            tvStar.setText(emp.getStar());
-            tvServiciu.setText(emp.getServiciu());
-            tvSectia.setText(emp.getSectia());
-            tvDepart.setText(emp.getDepart());
-            tvPhone.setText(emp.getPhone());
-            tvPhoneInternal.setText(emp.getPhoneinternal());
-            tvPhonemobil.setText(emp.getPhonemobil());
-            tvEmail.setText(emp.getEmail());
-            tvPersonalinfo.setText(emp.getPersonalinfo());
-            tvFormname.setText(emp.getFormname());
-            tvFloor.setText(emp.getFloor());
-            tvOffice.setText(emp.getOffice());
-            tvNotice.setText(emp.getNotice());
-        }
+
+        if (emp == null) return;
+
+        ((TextView) findViewById(R.id.tvName)).setText(emp.getName());
+        ((TextView) findViewById(R.id.tvDescription)).setText(emp.getDescription());
+        ((TextView) findViewById(R.id.tvGalaxy)).setText(emp.getGalaxy());
+        ((TextView) findViewById(R.id.tvStar)).setText(emp.getStar());
+        ((TextView) findViewById(R.id.tvServiciu)).setText(emp.getServiciu());
+        ((TextView) findViewById(R.id.tvSectia)).setText(emp.getSectia());
+        ((TextView) findViewById(R.id.tvDepart)).setText(emp.getDepart());
+        ((TextView) findViewById(R.id.tvPhone)).setText(emp.getPhone());
+        ((TextView) findViewById(R.id.tvPhoneInternal)).setText(emp.getPhoneinternal());
+        ((TextView) findViewById(R.id.tvEmail)).setText(emp.getEmail());
+        ((TextView) findViewById(R.id.tvPersonalinfo)).setText(emp.getPersonalinfo());
+        ((TextView) findViewById(R.id.tvFormname)).setText(emp.getFormname());
+        ((TextView) findViewById(R.id.tvPhonemobil)).setText(emp.getPhonemobil());
+        ((TextView) findViewById(R.id.tvFloor)).setText(emp.getFloor());
+        ((TextView) findViewById(R.id.tvOffice)).setText(emp.getOffice());
+        ((TextView) findViewById(R.id.tvNotice)).setText(emp.getNotice());
     }
 }
