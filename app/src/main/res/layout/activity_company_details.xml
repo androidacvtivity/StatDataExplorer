@@ -1,13 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvDetails"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@android:color/black" />
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView android:id="@+id/tvDenumire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Denumire"
+            android:textStyle="bold" />
+
+        <TextView android:id="@+id/tvIdno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IDNO" />
+
+        <TextView android:id="@+id/tvAdresa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adresă" />
+
+        <TextView android:id="@+id/tvForma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forma organizatorică" />
+
+        <TextView android:id="@+id/tvConditii"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Condiții" />
+
+        <TextView android:id="@+id/tvFondatori"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fondatori" />
+
+        <TextView android:id="@+id/tvFaraLicenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Activități fără licență" />
+
+        <TextView android:id="@+id/tvCuLicenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Activități cu licență" />
+
+        <TextView android:id="@+id/tvStatut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Statut" />
+
+        <TextView android:id="@+id/tvData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data înregistrării" />
+
+        <TextView android:id="@+id/tvAct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Act" />
+
+    </LinearLayout>
 </ScrollView>
