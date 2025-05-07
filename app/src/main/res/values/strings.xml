@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Stat Data Explorer</string>
     <string name="todo">TODO</string>
+    <string name="IDNO_08_08_22">Search for information about all companies in the Republic of Moldova and Romania.</string>
+    <string name="clasificatoare">Classifications and Nomenclatures</string>
+    <string name="m_disclaimer">The  - Stat Level -  app is not affiliated, endorsed, or authorized by any government entity.</string>
+    <string name="direc_ia_proiectare_aplica_ii_informatice">Direcția proiectare aplicații</string>
+    <string name="biroul_na_ional_de_statistic_al_republicii_moldova">Biroul Național de Statistică al Republicii Moldova</string>
+    <string name="direc_ia_general_tehnologii_informa_ionale">Direcția generală tehnologii informaționale</string>
 </resources>
