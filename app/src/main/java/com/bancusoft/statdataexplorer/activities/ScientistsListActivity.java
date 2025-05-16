@@ -10,6 +10,7 @@ import com.bancusoft.statdataexplorer.R;
 import com.bancusoft.statdataexplorer.adapters.CompanyAdapter;
 import com.bancusoft.statdataexplorer.models.CompanyModel;
 import com.bancusoft.statdataexplorer.models.ResponseModel;
+import com.bancusoft.statdataexplorer.network.ApiClient;
 import com.bancusoft.statdataexplorer.network.RestApi;
 
 import java.util.List;
@@ -38,12 +39,10 @@ public class ScientistsListActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        api = ApiClient.getClient().create(RestApi.class);
 
-        api = retrofit.create(RestApi.class);
+
+        RestApi api = ApiClient.getClient().create(RestApi.class);
 
         // Încărcare inițială fără filtru
         searchCompany("");

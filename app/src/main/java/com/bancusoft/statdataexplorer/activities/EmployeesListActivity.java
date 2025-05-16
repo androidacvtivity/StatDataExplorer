@@ -11,6 +11,7 @@ import com.bancusoft.statdataexplorer.R;
 import com.bancusoft.statdataexplorer.adapters.EmployeeAdapter;
 import com.bancusoft.statdataexplorer.models.EmployeeModel;
 import com.bancusoft.statdataexplorer.models.ResponseModelEmployee;
+import com.bancusoft.statdataexplorer.network.ApiClient;
 import com.bancusoft.statdataexplorer.network.RestApi;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class EmployeesListActivity extends AppCompatActivity {
     private List<EmployeeModel> allEmployees;
 
     private final String BASE_URL = "http://bancusoft.com/PHP/production/"; // ajustează dacă e necesar
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +58,9 @@ public class EmployeesListActivity extends AppCompatActivity {
     }
 
     private void loadEmployeeData() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        RestApi api = retrofit.create(RestApi.class);
+
+        RestApi api = ApiClient.getClient().create(RestApi.class);
         api.retrieveEmployees().enqueue(new Callback<ResponseModelEmployee>() {
             @Override
             public void onResponse(Call<ResponseModelEmployee> call, Response<ResponseModelEmployee> response) {
