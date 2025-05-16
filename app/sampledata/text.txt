@@ -1,0 +1,103 @@
+Acesta  este tabelul in MySQL
+CREATE TABLE `start3v3` (
+	`id` BIGINT NOT NULL,
+	`name` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`statut` VARCHAR(255) NULL DEFAULT 'xxxxx' COLLATE 'utf8mb4_unicode_ci',
+	`description` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`galaxy` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`star` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`dob` VARCHAR(255) NULL DEFAULT '0000-00-00' COLLATE 'utf8mb4_unicode_ci',
+	`serviciu` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`sectia` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`depart` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`phone` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`phoneinternal` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`email` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`personalinfo` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`formname` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`phonemobil` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`created_date` DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+	`floor` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`office` VARCHAR(255) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci',
+	`remove_date` DATETIME NULL DEFAULT NULL,
+	`date_updated` DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+	`recoverydata` DATETIME NULL DEFAULT NULL,
+	`notice` VARCHAR(1024) NULL DEFAULT 'Pentru vizualizarea informatiei complete despre angajat, accesati profilul. Click pe profil.' COLLATE 'utf8mb4_unicode_ci',
+	`studio` VARCHAR(1024) NULL DEFAULT 'empty field' COLLATE 'utf8mb4_unicode_ci'
+)
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+;
+
+
+Acolo este facut dupa coloana star (denumirea) se grupeza dupa coloana start
+Se afiseaza angajatii dupa grupa - dar local - acum eu vreau sa facem
+
+Lista directiilor si in coloana start la fiecare angajator este denumirea directiilor
+afisam directiile si cand facem click pe directie - se incarca lista angajatilor care sunt in aceasta directie
+
+Director General
+Director general adjunct
+tehnologii informationale
+empty field
+statistica intreprinderilor
+statistica macroeconomica
+colectarea datelor entitati economice
+statistica sociala si demografie
+CRS mun. Chisinau
+CRS NORD
+CRS NORD Balti
+CRS NORD Briceni
+CRS NORD Donduseni
+CRS NORD Drochia
+CRS NORD Falesti
+CRS NORD Floresti
+CRS NORD Glodeni
+CRS NORD Ocnita
+CRS NORD Rezina
+CRS NORD Rascani
+CRS NORD Sangerei
+CRS NORD Soroca
+CRS NORD Soldanesti
+CRS NORD Telenesti
+CRS CENTRU
+CRS CENTRU Anenii Noi
+CRS CENTRU Calarasi
+CRS CENTRU Causeni
+CRS CENTRU Cimislia
+CRS CENTRU Criuleni
+CRS CENTRU Dubasari (Cocieri)
+CRS CENTRU Hancesti
+CRS CENTRU Ialoveni
+CRS CENTRU Orhei
+CRS CENTRU Straseni
+CRS CENTRU Stefan Voda
+CRS CENTRU Ungheni
+CRS SUD
+CRS SUD Basarabeasca
+CRS SUD Cahul
+CRS SUD Cantemir
+CRS SUD Leova
+CRS SUD Taraclia
+CRS NORD Edinet
+Centrul regional pentru statistica CENTRU
+CRS CENTRU Nisporeni
+CRS SUD UTA Gagauzia
+Linia Verde
+Sectia instruire in statistica oficiala
+
+
+SELECT DISTINCT star
+
+FROM start3v3
+
+
+Lista angajatilor trebuie de grupat in UI
+
+1. Menu - Angajatii BNS
+
+
+1.1  Lista angajatilor in ordine alfabetica
+1.2  Dupa directie generala  - dupa coloana (star)
+1.3  Dupa directie           - dupa coloana (depart)
+1.4  Dupa functie            - dupa coloana (galaxy)

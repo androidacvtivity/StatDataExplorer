@@ -12,6 +12,7 @@ import com.bancusoft.statdataexplorer.adapters.EmployeeAdapter;
 import com.bancusoft.statdataexplorer.models.EmployeeModel;
 import com.bancusoft.statdataexplorer.models.ResponseModelEmployee;
 import com.bancusoft.statdataexplorer.network.ApiClient;
+import com.bancusoft.statdataexplorer.network.ApiUtils;
 import com.bancusoft.statdataexplorer.network.RestApi;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class EmployeesListActivity extends AppCompatActivity {
     private EmployeeAdapter adapter;
     private List<EmployeeModel> allEmployees;
 
-    private final String BASE_URL = "http://bancusoft.com/PHP/production/"; // ajustează dacă e necesar
+
 
 
     @Override
@@ -60,7 +61,8 @@ public class EmployeesListActivity extends AppCompatActivity {
     private void loadEmployeeData() {
 
 
-        RestApi api = ApiClient.getClient().create(RestApi.class);
+
+        RestApi api = ApiUtils.getApiService(); // elegant
         api.retrieveEmployees().enqueue(new Callback<ResponseModelEmployee>() {
             @Override
             public void onResponse(Call<ResponseModelEmployee> call, Response<ResponseModelEmployee> response) {
