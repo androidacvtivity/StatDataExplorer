@@ -31,6 +31,7 @@
         <activity android:name=".activities.CompanyDetailsActivity" />
         <activity android:name=".activities.EmployeesListActivity" />
         <activity android:name=".activities.EmployeeDetailsActivity" />
+        <activity android:name=".activities.EmployeeMenuActivity" />
         <activity android:name=".activities.MainActivity" />
     </application>
 

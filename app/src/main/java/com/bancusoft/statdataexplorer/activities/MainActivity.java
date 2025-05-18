@@ -17,17 +17,18 @@ public class MainActivity extends AppCompatActivity {
                 com.bancusoft.statdataexplorer.databinding.ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.cardViewScientists.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, EmployeeMenuActivity.class); // sau cum se numește noua activitate
+            startActivity(intent);
+        });
+
         // Card: Lista companiilor
         binding.cardViewCompanies.setOnClickListener(v -> {
             Toast.makeText(this, "Se încarcă companiile...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, ScientistsListActivity.class));
         });
 
-        // Card: Lista angajaților
-        binding.cardViewScientists.setOnClickListener(v -> {
-            Toast.makeText(this, "Se încarcă lista angajaților...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this, EmployeesListActivity.class));
-        });
+
     }
 
 }
