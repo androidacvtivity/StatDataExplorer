@@ -101,3 +101,32 @@ Lista angajatilor trebuie de grupat in UI
 1.2  Dupa directie generala  - dupa coloana (star)
 1.3  Dupa directie           - dupa coloana (depart)
 1.4  Dupa functie            - dupa coloana (galaxy)
+
+
+
+
+Buna ziua.
+Deci am convenit ca facem.
+
+
+
+1. Lista angajatilor
+
+
+1.1  Lista angajatilor in ordine alfabetica
+1.2  Dupa directie generala  - dupa coloana (star)
+1.3  Dupa directie           - dupa coloana (depart)
+1.4  Dupa functie            - dupa coloana (galaxy
+
+
+Acum modificam activity_main
+
+Cand facem click pe Lista angajatilor - sa trecme la alt menu cu
+
+1.1  Lista angajatilor in ordine alfabetica - aici nu modificam - ramane asa doar o sa facem order by name
+1.2  Dupa directie generala  - dupa coloana (star)
+1.3  Dupa directie           - dupa coloana (depart)
+1.4  Dupa functie            - dupa coloana (galaxy
+
+
+si de ja cand facem clikc pe fiecare trecem de ja la lista corespunzatoare
