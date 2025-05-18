@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:background="#FFFFFF">
+
+    <Button
+        android:id="@+id/btnAlpha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1. Lista alfabetică"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnStar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2. După direcție generală"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnDepart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3. După direcție"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnGalaxy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="4. După funcție" />
+
+</LinearLayout>
