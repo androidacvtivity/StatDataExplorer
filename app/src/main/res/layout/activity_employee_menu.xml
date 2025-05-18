@@ -1,37 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
-    android:background="#FFFFFF">
+    android:padding="16dp"
+    android:background="#f8f8f8">
 
-    <Button
-        android:id="@+id/btnAlpha"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1. Lista alfabetică"
-        android:layout_marginBottom="16dp"/>
+        android:gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/btnStar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="2. După direcție generală"
-        android:layout_marginBottom="16dp"/>
+        <!-- Titlu -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔎 Selectează o metodă de afișare"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="24dp" />
 
-    <Button
-        android:id="@+id/btnDepart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="3. După direcție"
-        android:layout_marginBottom="16dp"/>
+        <!-- Opțiunea 1: Alfabetic -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardAlpha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="4dp">
 
-    <Button
-        android:id="@+id/btnGalaxy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="4. După funcție" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="🔤 În ordine alfabetică"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+        <!-- Opțiunea 2: După direcție generală -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardStar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="🏢 După direcție generală (star)"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Opțiunea 3: După direcție -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDepart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="📌 După direcție (depart)"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Opțiunea 4: După funcție -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardGalaxy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="👔 După funcție (galaxy)"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>
