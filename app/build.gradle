@@ -11,8 +11,8 @@ android {
         applicationId "com.bancusoft.statdataexplorer"
         minSdk 24
         targetSdk 34
-        versionCode 24
-        versionName "24.0"
+        versionCode 25
+        versionName "25.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,8 +53,8 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.16.0'
 
     // Retrofit + GSON
-    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+    implementation 'com.squareup.retrofit2:retrofit:3.0.0'
+    implementation 'com.squareup.retrofit2:converter-gson:3.0.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
 
     // Test
