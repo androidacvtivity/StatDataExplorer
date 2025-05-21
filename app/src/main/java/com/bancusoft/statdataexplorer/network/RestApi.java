@@ -2,6 +2,8 @@ package com.bancusoft.statdataexplorer.network;
 
 import com.bancusoft.statdataexplorer.models.ResponseModel;
 import com.bancusoft.statdataexplorer.models.ResponseModelEmployee;
+import com.bancusoft.statdataexplorer.models.StarResponseModel;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -44,6 +46,10 @@ public interface RestApi {
     );
 
 
-
+    @FormUrlEncoded
+    @POST("index.php")
+    Call<StarResponseModel> getStars(
+            @Field("action") String action
+    );
 
 }

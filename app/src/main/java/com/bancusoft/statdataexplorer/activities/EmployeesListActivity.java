@@ -1,5 +1,7 @@
 package com.bancusoft.statdataexplorer.activities;
 
+//import static com.bancusoft.statdataexplorer.activities.StarListActivity.BASE_URL;
+
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +45,14 @@ public class EmployeesListActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        loadEmployeeData();
+       // loadEmployeeData();
+
+        String star = getIntent().getStringExtra("star");
+        if (star != null && !star.isEmpty()) {
+            loadEmployeesByStar(star);
+        } else {
+            loadEmployeeData();
+        }
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override public boolean onQueryTextSubmit(String query) {
@@ -81,4 +90,27 @@ public class EmployeesListActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private void loadEmployeesByStar(String star) {
+
+        RestApi api = ApiUtils.getApiService(); // elegant
+        api.getEmployeesByStar("GET_EMPLOYEES_BY_STAR", star)
+                .enqueue(new Callback<ResponseModelEmployee>() {
+                    @Override
+                    public void onResponse(Call<ResponseModelEmployee> call, Response<ResponseModelEmployee> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            List<EmployeeModel> list = response.body().getResult();
+                            adapter = new EmployeeAdapter(EmployeesListActivity.this, list);
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModelEmployee> call, Throwable t) {
+                        Toast.makeText(EmployeesListActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
 }
