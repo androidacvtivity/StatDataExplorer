@@ -1,0 +1,199 @@
+
+Recapitulare.
+Analizeaza inca odata codul sursa a aplicatiei
+
+1.1  Lista angajatilor in ordine alfabetica - functioneaza corect.
+
+Acum trebuie da adaugat
+
+1.2  Dupa directie generala  - dupa coloana (star)
+
+Da-mi ordinea mersului lucrarrii si codul sursa pentru fiecare etapa si salveaza tot intr-un fisier txt pentru descarcare
+
+
+ Ordinea lucrărilor pentru implementarea opțiunii „După direcție generală (star)”
+✅ Etapa 1: Backend PHP
+Modificări efectuate (finalizate deja):
+
+Funcția PHP care returnează direcțiile generale distincte din coloana star a tabelului angajaților.
+
+Funcția PHP care returnează lista angajaților care aparțin unei anumite direcții generale.
+
+Exemplu implementat deja:
+
+// index.php
+
+// Obține direcțiile generale distincte
+public function getStars() {
+    $sql = "SELECT DISTINCT star FROM start3v3 ORDER BY star ASC";
+    $con = $this->connect();
+    if ($con != null) {
+        $result = $con->query($sql);
+        $stars = [];
+        while ($row = $result->fetch_assoc()) {
+            $stars[] = ['star' => $row['star']];
+        }
+        echo json_encode(["code" => 1, "message" => "Success", "result" => $stars]);
+        $con->close();
+    }
+}
+
+// Obține angajații după o anumită direcție generală
+public function getEmployeesByStar() {
+    $star = $_POST['star'];
+    $sql = "SELECT * FROM start3v3 WHERE star = '$star' ORDER BY name ASC";
+    $con = $this->connect();
+    if ($con != null) {
+        $result = $con->query($sql);
+        $employees = [];
+        while ($row = $result->fetch_assoc()) {
+            $employees[] = [
+                "id" => $row['id'],
+                "name" => $row['name'],
+                "description" => $row['description'],
+                "galaxy" => $row['galaxy'],
+                "star" => $row['star'],
+                "serviciu" => $row['serviciu'],
+                "sectia" => $row['sectia'],
+                "depart" => $row['depart'],
+                "phone" => $row['phone'],
+                "phoneinternal" => $row['phoneinternal'],
+                "email" => $row['email'],
+                "personalinfo" => $row['personalinfo'],
+                "formname" => $row['formname'],
+                "phonemobil" => $row['phonemobil'],
+                "floor" => $row['floor'],
+                "office" => $row['office'],
+                "notice" => $row['notice']
+            ];
+        }
+        echo json_encode(["code" => 1, "message" => "Success", "result" => $employees]);
+        $con->close();
+    }
+}
+
+// Adăugare la metoda handleRequest()
+else if($action == 'GET_STARS'){
+    $this->getStars();
+}else if($action == 'GET_EMPLOYEES_BY_STAR'){
+    $this->getEmployeesByStar();
+}
+
+ Etapa 2: Modificarea Interfeței Utilizator (UI) Android
+Creare meniu cu opțiunile:
+
+Lista angajaților în ordine alfabetică (existentă)
+
+După direcție generală (nouă)
+
+După direcție (viitoare)
+
+După funcție (viitoare)
+
+Implementare nouă:
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btnAlphabetical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lista angajaților în ordine alfabetică" />
+
+    <Button
+        android:id="@+id/btnByStar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="După direcție generală" />
+
+    <Button
+        android:id="@+id/btnByDepart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="După direcție" />
+
+    <Button
+        android:id="@+id/btnByFunction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="După funcție" />
+
+</LinearLayout>
+
+Java (EmployeeMenuActivity.java):
+
+btnAlphabetical.setOnClickListener(v ->
+    startActivity(new Intent(this, EmployeesListActivity.class)));
+
+btnByStar.setOnClickListener(v ->
+    startActivity(new Intent(this, StarListActivity.class)));
+
+
+Etapa 3: Crearea activității pentru afișarea direcțiilor (StarListActivity)
+StarListActivity.java:
+
+api.getStars().enqueue(new Callback<StarResponseModel>() {
+    @Override
+    public void onResponse(Call<StarResponseModel> call, Response<StarResponseModel> response) {
+        if(response.isSuccessful() && response.body() != null) {
+            starList = response.body().getResult();
+            adapter = new StarAdapter(StarListActivity.this, starList);
+            recyclerView.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void onFailure(Call<StarResponseModel> call, Throwable t) {
+        Toast.makeText(StarListActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+});
+
+
+ Etapa 4: Crearea adapterului (StarAdapter.java)
+
+ @Override
+ public void onBindViewHolder(@NonNull StarViewHolder holder, int position) {
+     StarModel star = stars.get(position);
+     holder.tvStarName.setText(star.getStar());
+
+     holder.itemView.setOnClickListener(v -> {
+         Intent intent = new Intent(context, EmployeesByStarActivity.class);
+         intent.putExtra("starName", star.getStar());
+         context.startActivity(intent);
+     });
+ }
+
+
+ Etapa 5: Crearea activității pentru angajați după star (EmployeesByStarActivity.java)
+
+
+ String starName = getIntent().getStringExtra("starName");
+ api.getEmployeesByStar("GET_EMPLOYEES_BY_STAR", starName).enqueue(new Callback<ResponseModelEmployee>() {
+     @Override
+     public void onResponse(Call<ResponseModelEmployee> call, Response<ResponseModelEmployee> response) {
+         if(response.isSuccessful() && response.body() != null) {
+             employeeList = response.body().getResult();
+             adapter = new EmployeeAdapter(EmployeesByStarActivity.this, employeeList);
+             recyclerView.setAdapter(adapter);
+         }
+     }
+
+     @Override
+     public void onFailure(Call<ResponseModelEmployee> call, Throwable t) {
+         Toast.makeText(EmployeesByStarActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+     }
+ });
+
+
+Rezultatul Final:
+Aplicația StatDataExplorer permite acum:
+
+Afișarea tuturor direcțiilor generale;
+
+Afișarea angajaților grupați după direcție generală;
+
+Navigare fluentă și structurată între opțiuni.

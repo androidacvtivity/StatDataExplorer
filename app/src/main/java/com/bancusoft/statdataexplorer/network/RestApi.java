@@ -35,4 +35,15 @@ public interface RestApi {
             @Field("limit") String limit
     );
 
+
+    @FormUrlEncoded
+    @POST("index.php")
+    Call<ResponseModelEmployee> getEmployeesByStar(
+            @Field("action") String action,
+            @Field("star") String star
+    );
+
+
+
+
 }

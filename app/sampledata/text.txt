@@ -130,3 +130,35 @@ Cand facem click pe Lista angajatilor - sa trecme la alt menu cu
 
 
 si de ja cand facem clikc pe fiecare trecem de ja la lista corespunzatoare
+
+Analizeaza codul curent - facem o recapitulare
+
+
+1.1  Lista angajatilor in ordine alfabetica - aici nu modificam - ramane asa doar o sa facem order by name - Aceasta optiune functioneaza.
+1.2  Dupa directie generala  - dupa coloana (star)
+1.3  Dupa directie           - dupa coloana (depart)
+1.4  Dupa functie            - dupa coloana (galaxy
+
+Acum trebuie sa facem - 1.2  Dupa directie generala  - dupa coloana (star)
+
+
+
+
+Ce am facut
+1. în index.php am adaugat  getEmployeesByStar() care rerturneaza toti angajații pentru o anumită direcție (star):
+2. în funcția handleRequest am adaugat
+
+else if($action == 'GET_EMPLOYEES_BY_STAR'){
+                                           $this->getEmployeesByStar();
+                                       }
+
+
+
+3. în RestApi.java am daugat
+
+@FormUrlEncoded
+@POST("index.php")
+Call<ResponseModelEmployee> getEmployeesByStar(
+    @Field("action") String action,
+    @Field("star") String star
+);
