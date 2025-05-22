@@ -17,6 +17,7 @@ import com.bancusoft.statdataexplorer.network.ApiClient;
 import com.bancusoft.statdataexplorer.network.ApiUtils;
 import com.bancusoft.statdataexplorer.network.RestApi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -101,6 +102,7 @@ public class EmployeesListActivity extends AppCompatActivity {
                     public void onResponse(Call<ResponseModelEmployee> call, Response<ResponseModelEmployee> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             List<EmployeeModel> list = response.body().getResult();
+                            if (list == null) list = new ArrayList<>();
                             adapter = new EmployeeAdapter(EmployeesListActivity.this, list);
                             recyclerView.setAdapter(adapter);
                         }
