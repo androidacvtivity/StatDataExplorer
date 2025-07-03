@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.bancusoft.statdataexplorer"
         minSdk 24
-        targetSdk 35
+        targetSdk 34
         versionCode 27
         versionName "27.0"
 
@@ -45,7 +45,7 @@ android {
 
 dependencies {
     // Android UI
-    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'com.google.android.material:material:1.12.0'
 
