@@ -90,7 +90,7 @@ După direcție (viitoare)
 
 După funcție (viitoare)
 
-Implementare nouă:
+Implementare nouă: activity_employee_menu.xml
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
