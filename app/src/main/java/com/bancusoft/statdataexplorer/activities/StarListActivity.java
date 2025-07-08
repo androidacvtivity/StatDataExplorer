@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class StarListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private static final String BASE_URL = "http://bancusoft.com/PHP/production/";
+    private static final String BASE_URL = "http://bancusoft.com/PHP/deploy/";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
