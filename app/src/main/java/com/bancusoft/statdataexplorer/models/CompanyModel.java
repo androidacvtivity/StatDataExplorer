@@ -42,7 +42,7 @@ public class CompanyModel implements Serializable {
 
     public CompanyModel(String denumire, String idno, String adresa, String formaOrganizare,
                         String conditii, String fondatori, String activitatiFaraLicenta,
-                        String activitatiCuLicenta, String statutul, String dataInregistrarii, String act, String telefon, String email) {
+                        String activitatiCuLicenta, String statutul, String dataInregistrarii, String act) {
         this.denumire = denumire;
         this.idno = idno;
         this.adresa = adresa;
@@ -54,7 +54,6 @@ public class CompanyModel implements Serializable {
         this.statutul = statutul;
         this.dataInregistrarii = dataInregistrarii;
         this.act = act;
-
     }
 
     public String getDenumire() { return denumire; }
