@@ -192,7 +192,7 @@ api.getStars().enqueue(new Callback<StarResponseModel>() {
 Rezultatul Final:
 Aplicația StatDataExplorer permite acum:
 
-Afișarea tuturor direcțiilor generale;
+Afișarea tuturor angajatilor dupa ordinea alfabetica;
 
 Afișarea angajaților grupați după direcție generală;
 
