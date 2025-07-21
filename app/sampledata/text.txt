@@ -162,3 +162,5 @@ Call<ResponseModelEmployee> getEmployeesByStar(
     @Field("action") String action,
     @Field("star") String star
 );
+
+Structura Biroului Naţional de Statistică
