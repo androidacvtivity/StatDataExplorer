@@ -197,3 +197,8 @@ Afișarea tuturor angajatilor dupa ordinea alfabetica;
 Afișarea angajaților grupați după direcție generală;
 
 Navigare fluentă și structurată între opțiuni.
+
+
+Trebuie de adaugat functionaliatea
+1. Cand se face click in (activity_employee_menu) - android:id="@+id/cardStructBNS" sa se decshida
+

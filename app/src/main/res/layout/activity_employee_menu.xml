@@ -69,10 +69,11 @@
             android:elevation="4dp">
 
             <TextView
+                android:id="@+id/cardStructBNS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="📌 După direcție (depart)"
+                android:text="🏢 Structura Biroului Național de Statistică"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
