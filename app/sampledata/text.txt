@@ -163,4 +163,37 @@ Call<ResponseModelEmployee> getEmployeesByStar(
     @Field("star") String star
 );
 
+Acum in fisierul php
+
 Structura Biroului Naţional de Statistică
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------
+
+Aceasta vreau sa fac -
+2. Ce vrei să faci
+👉 Când utilizatorul apasă pe cardul cardStructBNS din EmployeeMenuActivity, să se deschidă un ecran nou cu structura BNS.
+
+Acolo să vadă lista ierarhică a structurilor (Direcții Generale → Direcții → Secții → Servicii).
+
+Eventual, să poată apăsa pe o structură și să vadă angajații asociați (din start3v5) care aparțin acelei structuri.
+
+
+Dacă accesezi index.php?action=struct_bns, vei primi lista structurilor BNS.
+
+Dacă accesezi index.php?action=employees_by_struct&level=star&name=Direcția generală tehnologii informaționale, vei primi toți angajații din acea direcție generală.
+
+
+Deci
+
+
+http://localhost/PHP/deploy/index.php?action=GET_STRUCT_BNS - Sau incarcat detele in brauzer
+
+http://localhost/PHP/deploy/index.php?action=GET_EMPLOYEES_BY_STRUCT&type=depart&name=Direcția%20proiectare%20aplicații --Sau incarcat detele in brauzer
+
+Deci cu partea de php am finisat
