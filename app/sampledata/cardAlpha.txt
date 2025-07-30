@@ -1,0 +1,107 @@
+Anlizeaza aplicatia si explica ce face cand se face click  pe android:id="@+id/cardAlpha"
+
+Când activitatea EmployeeMenuActivity este creată, pentru elementul cu id-ul cardAlpha este setat un OnClickListener. La apăsarea lui se pornește o nouă activitate:
+findViewById(R.id.cardAlpha).setOnClickListener(v ->
+        startActivity(new Intent(this, EmployeesListActivity.class))
+);
+
+În layout-ul activity_employee_menu.xml, cardul cu id cardAlpha este etichetat „În ordine alfabetică”, fiind prima opțiune din meniu:
+<!-- Opțiunea 1: Alfabetic -->
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardAlpha"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:elevation="4dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="🔤 În ordine alfabetică"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+</androidx.cardview.widget.CardView>
+
+După declanșarea clicului, se deschide EmployeesListActivity. Aceasta încarcă lista tuturor angajaților (dacă nu primește un parametru de filtrare) și o afișează într-un RecyclerView cu funcție de căutare:
+
+String star = getIntent().getStringExtra("star");
+if (star != null && !star.isEmpty()) {
+    loadEmployeesByStar(star);
+} else {
+    loadEmployeeData();
+}
+
+Metoda loadEmployeeData() face apel la API-ul extern și populează lista cu rezultatele obținute:
+
+
+RestApi api = ApiUtils.getApiService();
+api.retrieveEmployees().enqueue(new Callback<ResponseModelEmployee>() {
+    @Override
+    public void onResponse(Call<ResponseModelEmployee> call, Response<ResponseModelEmployee> response) {
+        if (response.isSuccessful() && response.body() != null) {
+            allEmployees = response.body().getResult();
+            adapter = new EmployeeAdapter(EmployeesListActivity.this, allEmployees);
+            recyclerView.setAdapter(adapter);
+        } else {
+            Toast.makeText(EmployeesListActivity.this, "Eroare la răspunsul serverului", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<ResponseModelEmployee> call, Throwable t) {
+        Toast.makeText(EmployeesListActivity.this, "Eșec la conectare: " + t.getMessage(), Toast.LENGTH_LONG).show();
+    }
+});
+
+Prin urmare, la clic pe cardAlpha utilizatorul este direcționat spre o listă completă a angajaților, încărcată de la server și afișată cu posibilitatea de căutare după nume, email sau alte detalii.
+
+
+În EmployeeMenuActivity, la apăsarea cardului cardAlpha este pornită EmployeesListActivity:
+
+
+findViewById(R.id.cardAlpha).setOnClickListener(v ->
+        startActivity(new Intent(this, EmployeesListActivity.class))
+);
+
+
+În EmployeesListActivity, metoda loadEmployeeData() folosește interfața RestApi pentru a încărca toți angajații:
+
+RestApi api = ApiUtils.getApiService();
+api.retrieveEmployees().enqueue(new Callback<ResponseModelEmployee>() { ... });
+
+Interfața RestApi definește apelul retrieveEmployees() astfel:
+
+@GET("index.php")
+Call<ResponseModelEmployee> retrieveEmployees();
+
+
+Iar RetrofitClient configurează adresa de bază a API‑ului:
+
+private static final String BASE_URL = "http://bancusoft.com/PHP/deploy/";
+
+
+Prin urmare, când utilizatorul apasă pe cardul cardAlpha, aplicația face o cerere GET către
+http://bancusoft.com/PHP/deploy/index.php pentru a obține lista tuturor angajaților. Acesta este endpoint‑ul PHP folosit pentru acea funcționalitate.
+
+
+extras din codul PHP
+
+// Obține direcțiile generale distincte
+27  public function getStars() {
+28      $sql = "SELECT DISTINCT star FROM start3v3 ORDER BY star ASC";
+29      $con = $this->connect();
+30      if ($con != null) {
+31          $result = $con->query($sql);
+32          $stars = [];
+33          while ($row = $result->fetch_assoc()) {
+34              $stars[] = ['star' => $row['star']];
+35          }
+36          echo json_encode(["code" => 1, "message" => "Success", "result" => $stars]);
+37          $con->close();
+38      }
+39  }
+
+

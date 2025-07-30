@@ -1,0 +1,71 @@
+ROADMAP pentru funcționalitatea „Structura BNS”
+1. PHP (API-ul) – începem aici
+Endpoint struct_bns – returnează toată lista din tabelul struct_bns sortată după id.
+
+Câmpuri returnate: id, type, name, name_id.
+
+Vom folosi deja codul pregătit mai sus.
+
+Endpoint employees_by_struct – returnează angajații (start3v5) aferenți unei structuri selectate.
+
+Parametri: type (nivel: star, depart, sectia, serviciu) și name (denumirea).
+
+Exemplu: index.php?action=employees_by_struct&type=depart&name=Direcția proiectare aplicații.
+
+Testăm endpoint-urile în browser/Postman ca să avem date corecte pentru Android.
+
+2. Android – partea de UI (după ce finalizăm PHP)
+2.1. Afișare listă struct_bns
+În EmployeeMenuActivity, la click pe cardStructBNS deschidem un nou StructBnsActivity.
+
+StructBnsActivity:
+
+Face request la struct_bns.
+
+Afișează toate structurile într-un RecyclerView.
+
+În listă afișăm doar name (dar păstrăm type și id în obiect pentru click).
+
+Diferentiem tipurile (star, depart, sectia, serviciu) vizual (ex: culori/iconițe).
+
+2.2. Click pe element → listă angajați
+La click pe o structură, deschidem EmployeesByStructActivity.
+
+În EmployeesByStructActivity:
+
+Trimitem parametrii type și name.
+
+Facem request la employees_by_struct pentru a încărca angajații aferenți.
+
+Afișăm lista angajaților în RecyclerView (similar cu lista principală de angajați).
+
+3. Funcționalități adiționale (după MVP)
+Grupare pe niveluri (expand/collapse) – opțional, după ce vedem lista simplă funcțională.
+
+Căutare în listă (live search).
+
+Filtre avansate (ex: doar direcții generale, doar secții).
+
+Ordinea de lucru
+PHP – endpoint struct_bns + employees_by_struct ✅
+
+Android – StructBnsActivity (RecyclerView simplu) ✅
+
+Android – EmployeesByStructActivity (lista angajaților) ✅
+
+Opțional – UI ierarhic expand/collapse.
+
+Faza 2: Android
+În EmployeeMenuActivity, click pe cardStructBNS → deschide StructBnsActivity.
+
+StructBnsActivity:
+
+Apelează endpoint-ul struct_bns și afișează toate structurile într-un RecyclerView.
+
+Afișează doar name (dar păstrăm și type/id în obiect).
+
+La click pe un item:
+
+Se deschide EmployeesByStructActivity.
+
+Aceasta apelează employees_by_struct cu type și name și afișează angajații într-un RecyclerView.

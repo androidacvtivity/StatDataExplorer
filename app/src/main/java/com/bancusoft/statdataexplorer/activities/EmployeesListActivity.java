@@ -13,7 +13,7 @@ import com.bancusoft.statdataexplorer.R;
 import com.bancusoft.statdataexplorer.adapters.EmployeeAdapter;
 import com.bancusoft.statdataexplorer.models.EmployeeModel;
 import com.bancusoft.statdataexplorer.models.ResponseModelEmployee;
-import com.bancusoft.statdataexplorer.network.ApiClient;
+
 import com.bancusoft.statdataexplorer.network.ApiUtils;
 import com.bancusoft.statdataexplorer.network.RestApi;
 

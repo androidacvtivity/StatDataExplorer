@@ -1,0 +1,76 @@
+
+ROADMAP FINAL – Funcționalitatea Structura BNS
+
+FAZA 1: API (PHP) – pregătirea datelor
+--------------------------------------
+
+1.1 Endpoint: struct_bns
+- Returnează toată structura organizațională din tabelul struct_bns ordonată după id.
+- Câmpuri returnate: id, type (star, depart, sectia, serviciu), name (denumirea structurii), name_id (codul intern)
+- Exemplu URL: https://domeniu.ro/index.php?action=struct_bns
+- Răspuns JSON:
+  [
+    {"id":"1","type":"star","name":"Direcția Generală TI","name_id":"DG01"},
+    {"id":"2","type":"depart","name":"Direcția Proiectare Aplicații","name_id":"DP02"}
+  ]
+
+1.2 Endpoint: employees_by_struct
+- Primește parametri:
+  - type → nivelul ierarhic (star / depart / sectia / serviciu)
+  - name → denumirea exactă a structurii  
+- Returnează toți angajații din start3v5 care aparțin de structura selectată, ordonați alfabetic după name.
+- Exemplu URL: 
+  https://domeniu.ro/index.php?action=employees_by_struct&type=depart&name=Direcția Proiectare Aplicații
+- Răspuns JSON:
+  [
+    {"id":"3","name":"BANCU Vitalie","galaxy":"Programator principal","email":"vitalie@..."},
+    {"id":"11","name":"GHEORGIȚĂ Natalia","galaxy":"Programator principal","email":"natalia@..."}
+  ]
+
+FAZA 2: ANDROID – integrarea în aplicație
+------------------------------------------
+
+2.1 Modificare în EmployeeMenuActivity
+- La click pe cardul cardStructBNS, se deschide un nou ecran StructBnsActivity.
+
+2.2 Ecran nou: StructBnsActivity
+- Apelează endpoint-ul struct_bns.
+- Afișează toată lista din struct_bns într-un RecyclerView, ordonată după id.
+- În listă se afișează doar name, dar păstrăm type și id în obiect.
+- Designul listei = identic cu alte liste din aplicație.
+
+2.3 Click pe un element din StructBnsActivity
+- La selectarea unei structuri, deschidem EmployeesByStructActivity.
+- Trimitem type și name ca parametri.
+
+2.4 Ecran nou: EmployeesByStructActivity
+- Apelează endpoint-ul employees_by_struct cu parametrii primiți (type și name).
+- Afișează lista angajaților într-un RecyclerView:
+  - Exact ca lista „după Direcție Generală (star)”
+  - Ordine alfabetică după name (direct din API).
+- Pe fiecare rând: nume, funcție (galaxy), email, telefon.
+
+2.5 Click pe un angajat din EmployeesByStructActivity
+- La click se deschide EmployeeDetailActivity (fișa angajatului).
+
+FAZA 3: TESTARE ȘI OPTIMIZĂRI
+------------------------------
+
+1. Testăm endpoint-urile struct_bns și employees_by_struct în browser/Postman.
+2. Verificăm că lista de structuri se încarcă corect pe Android.
+3. Verificăm că lista angajaților e identică ca afișare cu lista „după Direcție Generală”.
+4. Verificăm click-ul pe angajat → deschide fișa detaliată.
+5. Opțional: adăugăm căutare în StructBnsActivity și EmployeesByStructActivity.
+
+ORDINEA DE LUCRU
+----------------
+1️⃣ Scriem PHP-ul final (ambele endpoint-uri)
+2️⃣ Facem StructBnsActivity în Android
+3️⃣ Facem EmployeesByStructActivity + click pe angajat
+
+
+http://localhost/PHP/deploy/index.php?action=GET_STRUCT_BNS - Sau incarcat detele in brauzer
+
+http://localhost/PHP/deploy/index.php?action=GET_EMPLOYEES_BY_STRUCT&type=depart&name=Direcția%20proiectare%20aplicații --Sau incarcat detele in brauzer
+
+Deci cu partea de php am finisat
