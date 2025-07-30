@@ -89,7 +89,11 @@ http://bancusoft.com/PHP/deploy/index.php pentru a obține lista tuturor angaja�
 
 extras din codul PHP
 
-// Obține direcțiile generale distincte
+22  Exemplu implementat deja:
+23
+24  // index.php
+25
+26  // Obține direcțiile generale distincte
 27  public function getStars() {
 28      $sql = "SELECT DISTINCT star FROM start3v3 ORDER BY star ASC";
 29      $con = $this->connect();
@@ -103,5 +107,49 @@ extras din codul PHP
 37          $con->close();
 38      }
 39  }
+40
+41  // Obține angajații după o anumită direcție generală
+42  public function getEmployeesByStar() {
+43      $star = $_POST['star'];
+44      $sql = "SELECT * FROM start3v3 WHERE star = '$star' ORDER BY name ASC";
+45      $con = $this->connect();
+46      if ($con != null) {
+47          $result = $con->query($sql);
+48          $employees = [];
+49          while ($row = $result->fetch_assoc()) {
+50              $employees[] = [
+51                  "id" => $row['id'],
+52                  "name" => $row['name'],
+53                  "description" => $row['description'],
+54                  "galaxy" => $row['galaxy'],
+55                  "star" => $row['star'],
+56                  "serviciu" => $row['serviciu'],
+57                  "sectia" => $row['sectia'],
+58                  "depart" => $row['depart'],
+59                  "phone" => $row['phone'],
+60                  "phoneinternal" => $row['phoneinternal'],
+61                  "email" => $row['email'],
+62                  "personalinfo" => $row['personalinfo'],
+63                  "formname" => $row['formname'],
+64                  "phonemobil" => $row['phonemobil'],
+65                  "floor" => $row['floor'],
+66                  "office" => $row['office'],
+67                  "notice" => $row['notice']
+68              ];
+69          }
+70          echo json_encode(["code" => 1, "message" => "Success", "result" => $employees]);
+71          $con->close();
+72      }
+73  }
+74
+75  // Adăugare la metoda handleRequest()
+76  else if($action == 'GET_STARS'){
+77      $this->getStars();
+78  }else if($action == 'GET_EMPLOYEES_BY_STAR'){
+79      $this->getEmployeesByStar();
+80  }
+
+Acest cod sugerează că, atunci când aplicația Android solicită lista angajaților (prin EmployeesListActivity sau filtrarea după star), serverul PHP răspunde prin aceste funcții definite în index.php. Functions getStars() întoarce lista de direcții (stars), iar getEmployeesByStar() returnează angajații pentru o direcție selectată.
+
 
 
