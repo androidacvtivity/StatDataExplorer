@@ -33,6 +33,8 @@
         <activity android:name=".activities.EmployeeDetailsActivity" />
         <activity android:name=".activities.EmployeeMenuActivity" />
         <activity android:name=".activities.StarListActivity"/>
+        <activity android:name=".activities.StructBnsActivity"/>
+        <activity android:name=".activities.EmployeesByStructActivity"/>
 
         <activity android:name=".activities.MainActivity" />
     </application>
