@@ -22,6 +22,7 @@ public class EmployeeMenuActivity extends AppCompatActivity {
         );
 
         findViewById(R.id.cardStar).setOnClickListener(v ->
+
                 startActivity(new Intent(this, StarListActivity.class))
         );
 

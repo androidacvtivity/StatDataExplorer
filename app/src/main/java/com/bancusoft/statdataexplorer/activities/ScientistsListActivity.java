@@ -10,7 +10,7 @@ import com.bancusoft.statdataexplorer.R;
 import com.bancusoft.statdataexplorer.adapters.CompanyAdapter;
 import com.bancusoft.statdataexplorer.models.CompanyModel;
 import com.bancusoft.statdataexplorer.models.ResponseModel;
-import com.bancusoft.statdataexplorer.network.ApiClient;
+
 import com.bancusoft.statdataexplorer.network.ApiUtils;
 import com.bancusoft.statdataexplorer.network.RestApi;
 
@@ -27,7 +27,7 @@ public class ScientistsListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SearchView searchView;
     private CompanyAdapter adapter;
-  //  private static final String BASE_URL = "http://bancusoft.com/PHP/production/";
+
 
     private RestApi api;
 
@@ -40,13 +40,10 @@ public class ScientistsListActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//        api = ApiClient.getClient().create(RestApi.class);
+
         api = ApiUtils.getApiService(); // elegant
 
 
-      //  RestApi api = ApiClient.getClient().create(RestApi.class);
-
-        // Încărcare inițială fără filtru - cum este realizata la companiii si angajati ?
         searchCompany("");
 
         // Căutare live
@@ -66,7 +63,7 @@ public class ScientistsListActivity extends AppCompatActivity {
     }
 
     private void searchCompany(String query) {
-        api.searchvw("GET_PAGINATED_SEARCHVW", query, "0", "200").enqueue(new Callback<ResponseModel>() {
+        api.searchvw("GET_PAGINATED_SEARCHVW", query, "0", "10").enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
