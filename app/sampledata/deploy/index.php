@@ -593,6 +593,59 @@ function getEmployeesByStruct($conn, $type, $name) {
 }
 
 
+public function getEmployeesByGroup() {
+    $tip = $_POST['tip'];      // star, depart, sectia, serviciu
+    $valoare = $_POST['valoare'];
+
+    // Verificăm dacă tipul este permis, pentru siguranță
+    $allowed = ['star', 'depart', 'sectia', 'serviciu'];
+    if (!in_array($tip, $allowed)) {
+        echo json_encode(["code" => 0, "message" => "Invalid group type"]);
+        return;
+    }
+
+    // Construim SQL dinamic cu prepared statements
+    $sql = "SELECT * FROM start3v5 WHERE `$tip` = ? ORDER BY name ASC";
+
+    $con = $this->connect();
+    if ($con != null) {
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param("s", $valoare);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $employees = [];
+        while ($row = $result->fetch_assoc()) {
+            $employees[] = [
+                "id" => $row['id'],
+                "name" => $row['name'],
+                "description" => $row['description'],
+                "galaxy" => $row['galaxy'],
+                "star" => $row['star'],
+                "serviciu" => $row['serviciu'],
+                "sectia" => $row['sectia'],
+                "depart" => $row['depart'],
+                "phone" => $row['phone'],
+                "phoneinternal" => $row['phoneinternal'],
+                "email" => $row['email'],
+                "personalinfo" => $row['personalinfo'],
+                "formname" => $row['formname'],
+                "phonemobil" => $row['phonemobil'],
+                "floor" => $row['floor'],
+                "office" => $row['office'],
+                "notice" => $row['notice']
+            ];
+        }
+
+        echo json_encode(["code" => 1, "message" => "Success", "result" => $employees]);
+        $stmt->close();
+        $con->close();
+    } else {
+        echo json_encode(["code" => 0, "message" => "Connection failed"]);
+    }
+}
+
+
     public function handleRequest() {
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
