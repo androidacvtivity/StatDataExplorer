@@ -2,3 +2,13 @@
 2. Am adaugat @GET("index.php?action=GET_STRUCT_BNS")
               Call<List<StructBns>> getStructBns();
 
+3. am deschis in brauzer
+http://localhost/PHP/deploy/index.php?action=GET_STRUCT_BNS - Se deschide
+Pe productie se deschide https://bancusoft.com/PHP/deploy/index.php?action=GET_STRUCT_BNS
+
+4. da cand fac clikc nu se deschide - De ce ?
+
+
+1.<uses-permission android:name="android.permission.INTERNET" /> - Este in AndroidManifest.xml
+
+Deci cand facem click pe

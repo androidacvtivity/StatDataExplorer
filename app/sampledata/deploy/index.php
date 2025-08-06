@@ -486,6 +486,71 @@ ORDER BY star ASC";
             print(json_encode(array('code' => 3, 'message' => 'ERROR: Cannot connect to database.')));
         }
     }
+
+
+
+
+
+public function getDeparts() {
+    $sql = "SELECT DISTINCT TRIM(depart) AS depart
+            FROM start3v5
+            WHERE depart IS NOT NULL AND depart != 'empty field' AND depart != ''
+            GROUP BY depart
+            HAVING depart IS NOT NULL AND depart != 'empty field' AND depart != ''
+            ORDER BY depart ASC";
+    $con = $this->connect();
+    if ($con != null) {
+        $result = $con->query($sql);
+        $departs = [];
+        while ($row = $result->fetch_assoc()) {
+            $departs[] = ['depart' => $row['depart']];
+        }
+        echo json_encode(["code" => 1, "message" => "Success", "result" => $departs]);
+        $con->close();
+    }
+}
+
+public function getSectii() {
+    $sql = "SELECT DISTINCT TRIM(sectia) AS sectia
+            FROM start3v5
+            WHERE sectia IS NOT NULL AND sectia != 'empty field' AND sectia != ''
+            GROUP BY sectia
+            HAVING sectia IS NOT NULL AND sectia != 'empty field' AND sectia != ''
+            ORDER BY sectia ASC";
+    $con = $this->connect();
+    if ($con != null) {
+        $result = $con->query($sql);
+        $sectii = [];
+        while ($row = $result->fetch_assoc()) {
+            $sectii[] = ['sectia' => $row['sectia']];
+        }
+        echo json_encode(["code" => 1, "message" => "Success", "result" => $sectii]);
+        $con->close();
+    }
+}
+
+public function getServicii() {
+    $sql = "SELECT DISTINCT TRIM(serviciu) AS serviciu
+            FROM start3v5
+            WHERE serviciu IS NOT NULL AND serviciu != 'empty field' AND serviciu != ''
+            GROUP BY serviciu
+            HAVING serviciu IS NOT NULL AND serviciu != 'empty field' AND serviciu != ''
+            ORDER BY serviciu ASC";
+    $con = $this->connect();
+    if ($con != null) {
+        $result = $con->query($sql);
+        $servicii = [];
+        while ($row = $result->fetch_assoc()) {
+            $servicii[] = ['serviciu' => $row['serviciu']];
+        }
+        echo json_encode(["code" => 1, "message" => "Success", "result" => $servicii]);
+        $con->close();
+    }
+}
+
+
+
+
     
 function getStructBns($conn) {
     $query = "SELECT id, type, name, name_id FROM struct_bns ORDER BY id ASC";
@@ -565,6 +630,16 @@ function getEmployeesByStruct($conn, $type, $name) {
                     $this->getEmployeesByStar();
                 }
 
+
+                else if($action == 'GET_DEPARTS') {
+    $this->getDeparts();
+}
+else if($action == 'GET_SECTII') {
+    $this->getSectii();
+}
+else if($action == 'GET_SERVICII') {
+    $this->getServicii();
+}
                  // --- NOUL ENDPOINT: struct_bns ---
             else if($action == 'GET_STRUCT_BNS'){
                 $this->getStructBns();
