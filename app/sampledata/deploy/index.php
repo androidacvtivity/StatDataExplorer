@@ -487,45 +487,60 @@ ORDER BY star ASC";
         }
     }
     
-function getStructBns($conn) {
-    $query = "SELECT id, type, name, name_id FROM struct_bns ORDER BY id ASC";
-    $result = $conn->query($query);
+    public function getStructBns() {
+        $con = $this->connect();
+        if ($con != null) {
+            $query = "SELECT id, type, name, name_id FROM struct_bns ORDER BY id ASC";
+            $result = $con->query($query);
 
-    $struct = array();
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $struct[] = array(
-                "id"      => $row['id'],
-                "type"    => $row['type'],
-                "name"    => $row['name'],
-                "name_id" => $row['name_id']
-            );
+            $struct = array();
+            if ($result && $result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $struct[] = array(
+                        "id"      => $row['id'],
+                        "type"    => $row['type'],
+                        "name"    => $row['name'],
+                        "name_id" => $row['name_id']
+                    );
+                }
+            }
+
+            echo json_encode($struct, JSON_UNESCAPED_UNICODE);
+            $con->close();
+        } else {
+            echo json_encode(array("error" => "Cannot connect to database."));
         }
     }
 
-    echo json_encode($struct, JSON_UNESCAPED_UNICODE);
-}
 
+    public function getEmployeesByStruct() {
+        $allowedTypes = ['star', 'depart', 'sectia', 'serviciu'];
+        $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
+        $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : null;
 
-function getEmployeesByStruct($conn, $type, $name) {
-    $allowedTypes = ['star', 'depart', 'sectia', 'serviciu'];
-    if (!in_array($type, $allowedTypes)) {
-        echo json_encode(["error" => "Tip invalid"]);
-        return;
+        if (!$type || !$name || !in_array($type, $allowedTypes)) {
+            echo json_encode(["error" => "Tip invalid"]);
+            return;
+        }
+
+        $con = $this->connect();
+        if ($con != null) {
+            $stmt = $con->prepare("SELECT * FROM start3v5 WHERE $type = ? ORDER BY name ASC");
+            $stmt->bind_param("s", $name);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $employees = array();
+            while ($row = $result->fetch_assoc()) {
+                $employees[] = $row;
+            }
+
+            echo json_encode($employees, JSON_UNESCAPED_UNICODE);
+            $con->close();
+        } else {
+            echo json_encode(array("error" => "Cannot connect to database."));
+        }
     }
-
-    $stmt = $conn->prepare("SELECT * FROM start3v5 WHERE $type = ? ORDER BY name ASC");
-    $stmt->bind_param("s", $name);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $employees = array();
-    while ($row = $result->fetch_assoc()) {
-        $employees[] = $row;
-    }
-
-    echo json_encode($employees, JSON_UNESCAPED_UNICODE);
-}
 
 
     public function handleRequest() {
@@ -542,24 +557,24 @@ function getEmployeesByStruct($conn, $type, $name) {
                     $this->update();
                 }else if($action == 'DELETE'){
                     $this->delete();
-				}
-				
-				else if($action == 'GET_PAGINATED'){
+                                }
+
+                                else if($action == 'GET_PAGINATED'){
                     $this->search();
-				}else if($action == 'GET_PAGINATED_SEARCH'){
+                                }else if($action == 'GET_PAGINATED_SEARCH'){
                     $this->search();
                 }
-				
-				else if($action == 'GET_PAGINATED_DGTI'){
+
+                                else if($action == 'GET_PAGINATED_DGTI'){
                     $this->search_dgti();
-				}else if($action == 'GET_PAGINATED_SEARCH_DGTI'){
+                                }else if($action == 'GET_PAGINATED_SEARCH_DGTI'){
                     $this->search_dgti();
                 }
-				
+
                 else if($action == 'GET_DISTINCT_STAR'){
                     $this->getStar();
                 }
-                
+
 
                 else if($action == 'GET_EMPLOYEES_BY_STAR'){
                     $this->getEmployeesByStar();
@@ -574,15 +589,24 @@ function getEmployeesByStruct($conn, $type, $name) {
             else if($action == 'GET_EMPLOYEES_BY_STRUCT'){
                 $this->getEmployeesByStruct();
             }
-				
-				else{
-					print(json_encode(array('code' =>4, 'message' => 'INVALID REQUEST.')));
-				}
+
+                                else{
+                                        print(json_encode(array('code' =>4, 'message' => 'INVALID REQUEST.')));
+                                }
             } else{
-				print(json_encode(array('code' =>5, 'message' => 'POST TYPE UNKNOWN.')));
+                                print(json_encode(array('code' =>5, 'message' => 'POST TYPE UNKNOWN.')));
             }
 
-        }else{
+        } else if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])) {
+            $action = $_GET['action'];
+            if($action == 'GET_STRUCT_BNS') {
+                $this->getStructBns();
+            } else if($action == 'GET_EMPLOYEES_BY_STRUCT') {
+                $this->getEmployeesByStruct();
+            } else {
+                $this->select();
+            }
+        } else {
             $this->select();
         }
     }
