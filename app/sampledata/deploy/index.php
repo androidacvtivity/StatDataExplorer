@@ -487,8 +487,7 @@ ORDER BY star ASC";
         }
     }
     
-    public function getStructBns() {
-        $con = $this->connect();
+    public function getStructBns($con) {
         if ($con != null) {
             $query = "SELECT id, type, name, name_id FROM struct_bns ORDER BY id ASC";
             $result = $con->query($query);
@@ -506,14 +505,13 @@ ORDER BY star ASC";
             }
 
             echo json_encode($struct, JSON_UNESCAPED_UNICODE);
-            $con->close();
         } else {
             echo json_encode(array("error" => "Cannot connect to database."));
         }
     }
 
 
-    public function getEmployeesByStruct() {
+    public function getEmployeesByStruct($con) {
         $allowedTypes = ['star', 'depart', 'sectia', 'serviciu'];
         $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
         $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : null;
@@ -523,7 +521,6 @@ ORDER BY star ASC";
             return;
         }
 
-        $con = $this->connect();
         if ($con != null) {
             $stmt = $con->prepare("SELECT * FROM start3v5 WHERE $type = ? ORDER BY name ASC");
             $stmt->bind_param("s", $name);
@@ -536,7 +533,6 @@ ORDER BY star ASC";
             }
 
             echo json_encode($employees, JSON_UNESCAPED_UNICODE);
-            $con->close();
         } else {
             echo json_encode(array("error" => "Cannot connect to database."));
         }
@@ -582,12 +578,16 @@ ORDER BY star ASC";
 
                  // --- NOUL ENDPOINT: struct_bns ---
             else if($action == 'GET_STRUCT_BNS'){
-                $this->getStructBns();
+                $con = $this->connect();
+                $this->getStructBns($con);
+                if($con){ $con->close(); }
             }
 
             // --- NOUL ENDPOINT: employees_by_struct ---
             else if($action == 'GET_EMPLOYEES_BY_STRUCT'){
-                $this->getEmployeesByStruct();
+                $con = $this->connect();
+                $this->getEmployeesByStruct($con);
+                if($con){ $con->close(); }
             }
 
                                 else{
@@ -600,9 +600,13 @@ ORDER BY star ASC";
         } else if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])) {
             $action = $_GET['action'];
             if($action == 'GET_STRUCT_BNS') {
-                $this->getStructBns();
+                $con = $this->connect();
+                $this->getStructBns($con);
+                if($con){ $con->close(); }
             } else if($action == 'GET_EMPLOYEES_BY_STRUCT') {
-                $this->getEmployeesByStruct();
+                $con = $this->connect();
+                $this->getEmployeesByStruct($con);
+                if($con){ $con->close(); }
             } else {
                 $this->select();
             }
