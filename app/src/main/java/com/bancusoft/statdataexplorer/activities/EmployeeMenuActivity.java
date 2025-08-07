@@ -26,14 +26,10 @@ public class EmployeeMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(this, StarListActivity.class))
         );
 
-        findViewById(R.id.cardStructBNS).setOnClickListener(v ->
+        findViewById(R.id.cardDepart).setOnClickListener(v ->
                 startActivity(new Intent(this, StructBnsActivity.class))
         );
-//
-//        findViewById(R.id.cardDepart).setOnClickListener(v ->
-//                startActivity(new Intent(this, EmployeesByDepartActivity.class))
-//        );
-//
+
 //        findViewById(R.id.cardGalaxy).setOnClickListener(v ->
 //                startActivity(new Intent(this, EmployeesByGalaxyActivity.class))
 //        );
