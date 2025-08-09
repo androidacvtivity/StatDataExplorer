@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "117583732333",
+    "project_id": "statdataexplorer-76c92227",
+    "storage_bucket": "statdataexplorer-76c92227.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117583732333:android:2b5b34a3cab9314a656964",
+        "android_client_info": {
+          "package_name": "com.bancusoft.statdataexplorer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8kKUOCN2pNMtQp5VPSsFJDjKDjADKKO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
