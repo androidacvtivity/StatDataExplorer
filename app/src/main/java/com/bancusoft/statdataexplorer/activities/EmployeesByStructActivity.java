@@ -29,7 +29,6 @@ public class EmployeesByStructActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private EmployeeAdapter adapter;
-    private List<EmployeeModel> employeeList = new ArrayList<>();
     private RestApi api;
     private String type, name;
 
@@ -43,7 +42,7 @@ public class EmployeesByStructActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerViewEmployees);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new EmployeeAdapter(this, employeeList);
+        adapter = new EmployeeAdapter(this, new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
 //         // Click pe angajat
@@ -66,10 +65,8 @@ public class EmployeesByStructActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<EmployeeModel> result = response.body();
                     if (result != null) {
-                        employeeList.clear();
                         if (!result.isEmpty()) {
-                            employeeList.addAll(result);
-                            adapter.notifyDataSetChanged();
+                            adapter.updateData(result);
                         } else {
                             Toast.makeText(EmployeesByStructActivity.this, "Nu s-au găsit angajați!", Toast.LENGTH_SHORT).show();
                         }
