@@ -1,6 +1,7 @@
 package com.bancusoft.statdataexplorer.activities;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,9 @@ import com.bancusoft.statdataexplorer.network.RestApi;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EmployeesByStructActivity extends AppCompatActivity {
 
@@ -48,28 +51,29 @@ public class EmployeesByStructActivity extends AppCompatActivity {
 //        });
 
         api = ApiUtils.getApiService();
-//
-//        loadEmployees();
+
+        // Load employees for the selected structure
+        loadEmployees();
     }
 
-//    private void loadEmployees() {
-//        api.getEmployeesByStruct(type, name).enqueue(new Callback<EmployeesApiResponse>() {
-//            @Override
-//            public void onResponse(Call<EmployeesApiResponse> call, Response<EmployeesApiResponse> response) {
-//                if (response.isSuccessful() && response.body() != null && response.body().getResult() != null) {
-//                    employeeList.clear();
-//                    employeeList.addAll(response.body().getResult());
-//                    adapter.notifyDataSetChanged();
-//                } else {
-//                    Toast.makeText(EmployeesByStructActivity.this, "Nu s-au găsit angajați!", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<EmployeesApiResponse> call, Throwable t) {
-//                t.printStackTrace();
-//                Toast.makeText(EmployeesByStructActivity.this, "Eroare conectare server: " + t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
+    private void loadEmployees() {
+        api.getEmployeesByStruct(type, name).enqueue(new Callback<EmployeesApiResponse>() {
+            @Override
+            public void onResponse(Call<EmployeesApiResponse> call, Response<EmployeesApiResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().getResult() != null) {
+                    employeeList.clear();
+                    employeeList.addAll(response.body().getResult());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(EmployeesByStructActivity.this, "Nu s-au găsit angajați!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EmployeesApiResponse> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(EmployeesByStructActivity.this, "Eroare conectare server: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }
