@@ -1,4 +1,79 @@
-1. Am adaugat activity_struct_bns.xml
-2. Am adaugat @GET("index.php?action=GET_STRUCT_BNS")
-              Call<List<StructBns>> getStructBns();
+Etapa 1 – modificarea layoutului.
 
+1. Am modificat activity_star_list.xml
+
+Acum este asa
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView android:text="🔷 Direcții Generale (star)"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerStar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <TextView android:text="🔶 Direcții (depart)"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerDepart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <TextView android:text="🔸 Secții (sectia)"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerSectia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <TextView android:text="🟢 Servicii (serviciu)"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerServiciu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>
+
+
+Mai departe ce fac ?
+
+ Etapa 2 – Implementare logică în Java
+
+
+Trebuie sa ajungem
+Sau afisat lista de
+1.  star
+2.  depart.
+3.  sectii.
+4.  servicii
+
+Acum dupa ce sa afisat lisat - cand fac clic pe una din lista sa apara angajatii din  - De exemplu
+star - Direcţia generală statistica întreprinderilor - sa para toti angajatii din acest star si analogic pentru depart, sectia, serviciu - aici vreau sa ajungem
+
+
+3. Am creat
+SimpleListResponse.java
+
+4. SimpleListResponse.java

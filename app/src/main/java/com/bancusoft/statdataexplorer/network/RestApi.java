@@ -1,5 +1,6 @@
 package com.bancusoft.statdataexplorer.network;
 
+import com.bancusoft.statdataexplorer.activities.SimpleListResponse;
 import com.bancusoft.statdataexplorer.models.EmployeeModel;
 import com.bancusoft.statdataexplorer.models.ResponseModel;
 import com.bancusoft.statdataexplorer.models.ResponseModelEmployee;
@@ -16,6 +17,17 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface RestApi {
+
+    @FormUrlEncoded
+    @POST("index.php")
+    Call<SimpleListResponse> getSimpleList(@Field("action") String action);
+    @FormUrlEncoded
+    @POST("index.php")
+    Call<ResponseModelEmployee> getEmployeesByGroup(
+            @Field("action") String action,
+            @Field("tip") String tip,
+            @Field("valoare") String valoare
+    );
 
 
     @GET("index_view.php")
