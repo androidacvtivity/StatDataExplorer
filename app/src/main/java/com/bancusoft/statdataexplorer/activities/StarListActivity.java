@@ -1,20 +1,19 @@
 package com.bancusoft.statdataexplorer.activities;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bancusoft.statdataexplorer.R;
-import com.bancusoft.statdataexplorer.adapters.StarAdapter;
-import com.bancusoft.statdataexplorer.models.StarModel;
-import com.bancusoft.statdataexplorer.models.StarResponseModel;
-import com.bancusoft.statdataexplorer.network.ApiUtils;
+import com.bancusoft.statdataexplorer.adapters.SimpleValueAdapter;
 import com.bancusoft.statdataexplorer.network.RestApi;
+import com.bancusoft.statdataexplorer.network.ApiUtils;
+import com.bancusoft.statdataexplorer.models.SimpleValueModel;
+
 
 import java.util.List;
 
@@ -24,41 +23,47 @@ import retrofit2.Response;
 
 public class StarListActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RestApi api;
+    RecyclerView recyclerStar, recyclerDepart, recyclerSectia, recyclerServiciu;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_star_list);
 
-        recyclerView = findViewById(R.id.recyclerViewStars);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerStar = findViewById(R.id.recyclerStar);
+        recyclerDepart = findViewById(R.id.recyclerDepart);
+        recyclerSectia = findViewById(R.id.recyclerSectia);
+        recyclerServiciu = findViewById(R.id.recyclerServiciu);
 
-        api = ApiUtils.getApiService();
-        loadStars();
+        recyclerStar.setLayoutManager(new LinearLayoutManager(this));
+        recyclerDepart.setLayoutManager(new LinearLayoutManager(this));
+        recyclerSectia.setLayoutManager(new LinearLayoutManager(this));
+        recyclerServiciu.setLayoutManager(new LinearLayoutManager(this));
+
+        // Aici setăm diferit "tipul" pentru fiecare listă (0=star, 1=depart, 2=sectie, 3=serviciu)
+        loadList("GET_STARS", recyclerStar, 0);
+        loadList("GET_DEPARTS", recyclerDepart, 1);
+        loadList("GET_SECTII", recyclerSectia, 2);
+        loadList("GET_SERVICII", recyclerServiciu, 3);
     }
 
-    private void loadStars() {
-        api.getStars("GET_DISTINCT_STAR").enqueue(new Callback<StarResponseModel>() {
+    private void loadList(String action, RecyclerView recyclerView, int tip) {
+        RestApi api = ApiUtils.getApiService();
+        Call<SimpleListResponse> call = api.getSimpleList(action);
+
+        call.enqueue(new Callback<SimpleListResponse>() {
             @Override
-            public void onResponse(Call<StarResponseModel> call, Response<StarResponseModel> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().getResult() != null) {
-                    List<StarModel> stars = response.body().getResult();
-                    StarAdapter adapter = new StarAdapter(StarListActivity.this, stars, star -> {
-                        Intent intent = new Intent(StarListActivity.this, EmployeesListActivity.class);
-                        intent.putExtra("star", star.getStar());
-                        startActivity(intent);
-                    });
+            public void onResponse(Call<SimpleListResponse> call, Response<SimpleListResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<SimpleValueModel> list = response.body().getResult();
+                    SimpleValueAdapter adapter = new SimpleValueAdapter(StarListActivity.this, list, tip);
                     recyclerView.setAdapter(adapter);
-                } else {
-                    Toast.makeText(StarListActivity.this, "Nu există direcții!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<StarResponseModel> call, Throwable t) {
-                Toast.makeText(StarListActivity.this, "Eroare rețea: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            public void onFailure(Call<SimpleListResponse> call, Throwable t) {
+                Toast.makeText(StarListActivity.this, "Eroare: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

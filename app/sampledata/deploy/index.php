@@ -486,6 +486,71 @@ ORDER BY star ASC";
             print(json_encode(array('code' => 3, 'message' => 'ERROR: Cannot connect to database.')));
         }
     }
+
+
+
+
+
+public function getDeparts() {
+    $sql = "SELECT DISTINCT TRIM(depart) AS depart
+            FROM start3v5
+            WHERE depart IS NOT NULL AND depart != 'empty field' AND depart != ''
+            GROUP BY depart
+            HAVING depart IS NOT NULL AND depart != 'empty field' AND depart != ''
+            ORDER BY depart ASC";
+    $con = $this->connect();
+    if ($con != null) {
+        $result = $con->query($sql);
+        $departs = [];
+        while ($row = $result->fetch_assoc()) {
+            $departs[] = ['depart' => $row['depart']];
+        }
+        echo json_encode(["code" => 1, "message" => "Success", "result" => $departs]);
+        $con->close();
+    }
+}
+
+public function getSectii() {
+    $sql = "SELECT DISTINCT TRIM(sectia) AS sectia
+            FROM start3v5
+            WHERE sectia IS NOT NULL AND sectia != 'empty field' AND sectia != ''
+            GROUP BY sectia
+            HAVING sectia IS NOT NULL AND sectia != 'empty field' AND sectia != ''
+            ORDER BY sectia ASC";
+    $con = $this->connect();
+    if ($con != null) {
+        $result = $con->query($sql);
+        $sectii = [];
+        while ($row = $result->fetch_assoc()) {
+            $sectii[] = ['sectia' => $row['sectia']];
+        }
+        echo json_encode(["code" => 1, "message" => "Success", "result" => $sectii]);
+        $con->close();
+    }
+}
+
+public function getServicii() {
+    $sql = "SELECT DISTINCT TRIM(serviciu) AS serviciu
+            FROM start3v5
+            WHERE serviciu IS NOT NULL AND serviciu != 'empty field' AND serviciu != ''
+            GROUP BY serviciu
+            HAVING serviciu IS NOT NULL AND serviciu != 'empty field' AND serviciu != ''
+            ORDER BY serviciu ASC";
+    $con = $this->connect();
+    if ($con != null) {
+        $result = $con->query($sql);
+        $servicii = [];
+        while ($row = $result->fetch_assoc()) {
+            $servicii[] = ['serviciu' => $row['serviciu']];
+        }
+        echo json_encode(["code" => 1, "message" => "Success", "result" => $servicii]);
+        $con->close();
+    }
+}
+
+
+
+
     
     public function getStructBns($con) {
         if ($con != null) {
@@ -539,6 +604,59 @@ ORDER BY star ASC";
     }
 
 
+public function getEmployeesByGroup() {
+    $tip = $_POST['tip'];      // star, depart, sectia, serviciu
+    $valoare = $_POST['valoare'];
+
+    // Verificăm dacă tipul este permis, pentru siguranță
+    $allowed = ['star', 'depart', 'sectia', 'serviciu'];
+    if (!in_array($tip, $allowed)) {
+        echo json_encode(["code" => 0, "message" => "Invalid group type"]);
+        return;
+    }
+
+    // Construim SQL dinamic cu prepared statements
+    $sql = "SELECT * FROM start3v5 WHERE `$tip` = ? ORDER BY name ASC";
+
+    $con = $this->connect();
+    if ($con != null) {
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param("s", $valoare);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $employees = [];
+        while ($row = $result->fetch_assoc()) {
+            $employees[] = [
+                "id" => $row['id'],
+                "name" => $row['name'],
+                "description" => $row['description'],
+                "galaxy" => $row['galaxy'],
+                "star" => $row['star'],
+                "serviciu" => $row['serviciu'],
+                "sectia" => $row['sectia'],
+                "depart" => $row['depart'],
+                "phone" => $row['phone'],
+                "phoneinternal" => $row['phoneinternal'],
+                "email" => $row['email'],
+                "personalinfo" => $row['personalinfo'],
+                "formname" => $row['formname'],
+                "phonemobil" => $row['phonemobil'],
+                "floor" => $row['floor'],
+                "office" => $row['office'],
+                "notice" => $row['notice']
+            ];
+        }
+
+        echo json_encode(["code" => 1, "message" => "Success", "result" => $employees]);
+        $stmt->close();
+        $con->close();
+    } else {
+        echo json_encode(["code" => 0, "message" => "Connection failed"]);
+    }
+}
+
+
     public function handleRequest() {
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -576,6 +694,16 @@ ORDER BY star ASC";
                     $this->getEmployeesByStar();
                 }
 
+
+                else if($action == 'GET_DEPARTS') {
+    $this->getDeparts();
+}
+else if($action == 'GET_SECTII') {
+    $this->getSectii();
+}
+else if($action == 'GET_SERVICII') {
+    $this->getServicii();
+}
                  // --- NOUL ENDPOINT: struct_bns ---
             else if($action == 'GET_STRUCT_BNS'){
                 $con = $this->connect();
