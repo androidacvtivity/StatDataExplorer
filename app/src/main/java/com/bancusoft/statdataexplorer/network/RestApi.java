@@ -1,6 +1,6 @@
 package com.bancusoft.statdataexplorer.network;
 
-
+import com.bancusoft.statdataexplorer.activities.SimpleListResponse;
 import com.bancusoft.statdataexplorer.models.EmployeeModel;
 import com.bancusoft.statdataexplorer.models.ResponseModel;
 import com.bancusoft.statdataexplorer.models.ResponseModelEmployee;
@@ -18,7 +18,9 @@ import retrofit2.http.Query;
 
 public interface RestApi {
 
-
+    @FormUrlEncoded
+    @POST("index.php")
+    Call<SimpleListResponse> getSimpleList(@Field("action") String action);
     @FormUrlEncoded
     @POST("index.php")
     Call<ResponseModelEmployee> getEmployeesByGroup(
@@ -27,9 +29,7 @@ public interface RestApi {
             @Field("valoare") String valoare
     );
 
-    @FormUrlEncoded
-    @POST("index.php")
-    Call<SimpleListResponse> getSimpleList(@Field("action") String action);
+
     @GET("index_view.php")
     Call<ResponseModel> retrievevw();  // folosit doar la prima încărcare
 
