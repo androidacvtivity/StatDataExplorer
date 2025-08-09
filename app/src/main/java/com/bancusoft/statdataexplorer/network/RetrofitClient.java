@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-  //  private static final String BASE_URL = "http://bancusoft.com/PHP/production/";
+
     private static final String BASE_URL = "https://bancusoft.com/PHP/deploy/";
     private static Retrofit retrofit = null;
 

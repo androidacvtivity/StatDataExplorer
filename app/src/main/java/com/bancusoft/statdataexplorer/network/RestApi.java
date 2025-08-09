@@ -1,7 +1,7 @@
 package com.bancusoft.statdataexplorer.network;
 
-import com.bancusoft.statdataexplorer.activities.SimpleListResponse;
-import com.bancusoft.statdataexplorer.models.EmployeesApiResponse;
+
+import com.bancusoft.statdataexplorer.models.EmployeeModel;
 import com.bancusoft.statdataexplorer.models.ResponseModel;
 import com.bancusoft.statdataexplorer.models.ResponseModelEmployee;
 import com.bancusoft.statdataexplorer.models.StarResponseModel;
@@ -37,7 +37,7 @@ public interface RestApi {
     Call<List<StructBns>> getStructBns();
 
     @GET("index.php?action=GET_EMPLOYEES_BY_STRUCT")
-    Call<EmployeesApiResponse> getEmployeesByStruct(
+    Call<List<EmployeeModel>> getEmployeesByStruct(
             @Query("type") String type,
             @Query("name") String name
     );

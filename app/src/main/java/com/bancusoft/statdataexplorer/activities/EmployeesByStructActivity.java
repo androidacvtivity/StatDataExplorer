@@ -1,6 +1,8 @@
 package com.bancusoft.statdataexplorer.activities;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,20 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bancusoft.statdataexplorer.R;
 import com.bancusoft.statdataexplorer.adapters.EmployeeAdapter;
 import com.bancusoft.statdataexplorer.models.EmployeeModel;
-import com.bancusoft.statdataexplorer.models.EmployeesApiResponse;
 import com.bancusoft.statdataexplorer.network.ApiUtils;
 import com.bancusoft.statdataexplorer.network.RestApi;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.JsonSyntaxException;
 
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EmployeesByStructActivity extends AppCompatActivity {
 
+    private static final String TAG = EmployeesByStructActivity.class.getSimpleName();
+
     private RecyclerView recyclerView;
     private EmployeeAdapter adapter;
-    private List<EmployeeModel> employeeList = new ArrayList<>();
     private RestApi api;
     private String type, name;
 
@@ -37,7 +42,7 @@ public class EmployeesByStructActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerViewEmployees);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new EmployeeAdapter(this, employeeList);
+        adapter = new EmployeeAdapter(this, new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
 //         // Click pe angajat
@@ -48,28 +53,42 @@ public class EmployeesByStructActivity extends AppCompatActivity {
 //        });
 
         api = ApiUtils.getApiService();
-//
-//        loadEmployees();
+
+        // Load employees for the selected structure
+        loadEmployees();
     }
 
-//    private void loadEmployees() {
-//        api.getEmployeesByStruct(type, name).enqueue(new Callback<EmployeesApiResponse>() {
-//            @Override
-//            public void onResponse(Call<EmployeesApiResponse> call, Response<EmployeesApiResponse> response) {
-//                if (response.isSuccessful() && response.body() != null && response.body().getResult() != null) {
-//                    employeeList.clear();
-//                    employeeList.addAll(response.body().getResult());
-//                    adapter.notifyDataSetChanged();
-//                } else {
-//                    Toast.makeText(EmployeesByStructActivity.this, "Nu s-au găsit angajați!", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<EmployeesApiResponse> call, Throwable t) {
-//                t.printStackTrace();
-//                Toast.makeText(EmployeesByStructActivity.this, "Eroare conectare server: " + t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
+    private void loadEmployees() {
+        api.getEmployeesByStruct(type, name).enqueue(new Callback<List<EmployeeModel>>() {
+            @Override
+            public void onResponse(Call<List<EmployeeModel>> call, Response<List<EmployeeModel>> response) {
+                if (response.isSuccessful()) {
+                    List<EmployeeModel> result = response.body();
+                    if (result != null) {
+                        if (!result.isEmpty()) {
+                            adapter.updateData(result);
+                        } else {
+                            Toast.makeText(EmployeesByStructActivity.this, "Nu s-au găsit angajați!", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Log.e(TAG, "Răspunsul de la server este null" );
+                        Toast.makeText(EmployeesByStructActivity.this, "Răspuns invalid de la server", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(EmployeesByStructActivity.this, "Nu s-au găsit angajați!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<EmployeeModel>> call, Throwable t) {
+                if (t instanceof JsonSyntaxException) {
+                    Log.e(TAG, "Unexpected non-array response", t);
+                    Toast.makeText(EmployeesByStructActivity.this, "Răspuns invalid de la server", Toast.LENGTH_SHORT).show();
+                } else {
+                    t.printStackTrace();
+                    Toast.makeText(EmployeesByStructActivity.this, "Eroare conectare server: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
 }
