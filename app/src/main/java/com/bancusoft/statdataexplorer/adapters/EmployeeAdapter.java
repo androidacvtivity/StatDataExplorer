@@ -21,11 +21,11 @@ import java.util.Locale;
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHolder> {
 
     private final Context context;
-    private final List<EmployeeModel> employees;
+    private List<EmployeeModel> employees;
 
     public EmployeeAdapter(Context context, List<EmployeeModel> employees) {
         this.context = context;
-        this.employees = employees;
+        this.employees = new ArrayList<>(employees);
         this.originalList.addAll(employees); // păstrăm copia originală
     }
 
@@ -88,6 +88,13 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
             }
         }
         notifyDataSetChanged();
+    }
+
+    public void updateData(List<EmployeeModel> newEmployees) {
+        this.employees = new ArrayList<>(newEmployees);
+        this.originalList.clear();
+        this.originalList.addAll(newEmployees);
+        filter(searchQuery);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
