@@ -69,7 +69,7 @@
             android:elevation="4dp">
 
             <TextView
-                android:id="@+id/cardStructBNS"
+                android:id="@+id/textStructBns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
