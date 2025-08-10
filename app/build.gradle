@@ -11,8 +11,8 @@ android {
         applicationId "com.bancusoft.statdataexplorer"
         minSdk 24
         targetSdk 35
-        versionCode 34
-        versionName "34.0"
+        versionCode 36
+        versionName "36.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
