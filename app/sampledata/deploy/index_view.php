@@ -82,13 +82,13 @@ class Scientistsvw{
 		WHERE 
 		 
 		 DEN_COM_VW LIKE '%$queryvw%' 
-		 or LISTA_FOND_VW LIKE '%$queryvw%'
+		-- or LISTA_FOND_VW LIKE '%$queryvw%'
 		 or IDNO_VW LIKE '%$queryvw%'
-		 or GEN_ACT_NE_LIC_VW LIKE '%$queryvw%'
-		 or ADRESA_VW LIKE '%$queryvw%'
-		 or GEN_ACT_LIC_VW LIKE '%$queryvw%'
-		 or STATUTUL_VW LIKE '%$queryvw%'
-		 or DATA_REG_VW LIKE '%$queryvw%'
+		-- or GEN_ACT_NE_LIC_VW LIKE '%$queryvw%'
+		-- or ADRESA_VW LIKE '%$queryvw%'
+		-- or GEN_ACT_LIC_VW LIKE '%$queryvw%'
+		-- or STATUTUL_VW LIKE '%$queryvw%'
+		-- or DATA_REG_VW LIKE '%$queryvw%'
 
          ORDER BY ID_VW
 	     LIMIT
