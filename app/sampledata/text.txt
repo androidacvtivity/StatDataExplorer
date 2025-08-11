@@ -3,3 +3,4 @@ Card Alpha → EmployeesListActivity folosește layout-ul activity_employees_lis
 In final se dschide  -- activity_employees_list.xml
 
 
+De ce la Card Alpha - este diferit de restul 2

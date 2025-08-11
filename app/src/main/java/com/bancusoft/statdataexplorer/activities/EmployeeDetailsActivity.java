@@ -35,6 +35,6 @@ public class EmployeeDetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tvPhonemobil)).setText(emp.getPhonemobil());
         ((TextView) findViewById(R.id.tvFloor)).setText(emp.getFloor());
         ((TextView) findViewById(R.id.tvOffice)).setText(emp.getOffice());
-        ((TextView) findViewById(R.id.tvNotice)).setText(emp.getNotice());
+//        ((TextView) findViewById(R.id.tvNotice)).setText(emp.getNotice());
     }
 }
