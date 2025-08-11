@@ -17,6 +17,8 @@ import com.bancusoft.statdataexplorer.network.ApiUtils;
 import com.bancusoft.statdataexplorer.network.RestApi;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import com.google.gson.JsonSyntaxException;
 
@@ -83,6 +85,7 @@ public class EmployeesByStructActivity extends AppCompatActivity {
                     List<EmployeeModel> result = response.body();
                     if (result != null) {
                         if (!result.isEmpty()) {
+                            Collections.sort(result, Comparator.comparing(EmployeeModel::getName, String.CASE_INSENSITIVE_ORDER));
                             adapter.updateData(result);
                         } else {
                             Toast.makeText(EmployeesByStructActivity.this, "Nu s-au găsit angajați!", Toast.LENGTH_SHORT).show();
