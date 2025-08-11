@@ -43,8 +43,9 @@ class Scientists{
 					"description"=>$row['description'],"galaxy"=>$row['galaxy'],"star"=>$row['star']
 					,"serviciu"=>$row['serviciu'],"sectia"=>$row['sectia']
 					,"depart"=>$row['depart'],"phone"=>$row['phone'],"phoneinternal"=>$row['phoneinternal']
-					,"email"=>$row['email'],"personalinfo"=>$row['personalinfo'],"formname"=>$row['formname'],
-					"phonemobil"=>$row['phonemobil'],"floor"=>$row['floor'],"office"=>$row['office']));
+                                        ,"email"=>$row['email'],"personalinfo"=>$row['personalinfo'],"formname"=>$row['formname'],
+                                        "phonemobil"=>$row['phonemobil'],"floor"=>$row['floor'],"office"=>$row['office'],
+                                        "notice"=>$row['notice']));
 					
                 }
                 print(json_encode(array("code" => 1,"message"=>"Success", "result"=>$scientists)));
