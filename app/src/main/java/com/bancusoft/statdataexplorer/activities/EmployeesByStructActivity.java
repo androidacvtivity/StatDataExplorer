@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,7 @@ public class EmployeesByStructActivity extends AppCompatActivity {
     private static final String TAG = EmployeesByStructActivity.class.getSimpleName();
 
     private RecyclerView recyclerView;
+    private SearchView searchView;
     private EmployeeAdapter adapter;
     private RestApi api;
     private String type, name;
@@ -41,9 +43,24 @@ public class EmployeesByStructActivity extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
 
         recyclerView = findViewById(R.id.recyclerViewEmployees);
+        searchView = findViewById(R.id.searchViewEmployees);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new EmployeeAdapter(this, new ArrayList<>());
         recyclerView.setAdapter(adapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.filter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filter(newText);
+                return true;
+            }
+        });
 
 //         // Click pe angajat
 //        adapter.setOnItemClickListener(employee -> {

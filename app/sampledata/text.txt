@@ -1,4 +1,4 @@
-1. Am adaugat activity_struct_bns.xml
-2. Am adaugat @GET("index.php?action=GET_STRUCT_BNS")
-              Call<List<StructBns>> getStructBns();
+Analizeaza codul - trebuie da adaugat optinea
 
+ca
+In activity_employees_by_struct.xml sa fie optiunea da cautare ca in activity_employees_stars.xml -
