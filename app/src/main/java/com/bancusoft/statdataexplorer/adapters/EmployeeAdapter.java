@@ -44,7 +44,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         EmployeeModel e = employees.get(position);
 
-        holder.txtName.setText(getHighlightedText(e.getName(), searchQuery, Color.YELLOW));
+        holder.txtName.setText(getHighlightedText(e.getName(), searchQuery, Color.GREEN));
         holder.txtDescription.setText(e.getDescription());
         holder.txtGalaxy.setText(e.getGalaxy());
         holder.txtStar.setText(e.getStar());
