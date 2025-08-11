@@ -1,16 +1,9 @@
 package com.bancusoft.statdataexplorer.activities;
 
-//import static com.bancusoft.statdataexplorer.activities.StarListActivity.BASE_URL;
-
 import android.os.Bundle;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bancusoft.statdataexplorer.R;
-import com.bancusoft.statdataexplorer.adapters.EmployeeAdapter;
 import com.bancusoft.statdataexplorer.models.EmployeeModel;
 import com.bancusoft.statdataexplorer.models.ResponseModelEmployee;
 
@@ -25,14 +18,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class EmployeesListActivity extends AppCompatActivity {
+public class EmployeesListActivity extends BaseEmployeesActivity {
 
-    private RecyclerView recyclerView;
-    private SearchView searchView;
-    private EmployeeAdapter adapter;
     private List<EmployeeModel> allEmployees;
 
 
@@ -43,12 +31,8 @@ public class EmployeesListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees_list);
 
-        recyclerView = findViewById(R.id.recyclerViewEmployees);
-        searchView = findViewById(R.id.searchViewEmployees);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-       // loadEmployeeData();
+        // initialize recycler view and search functionality
+        setupEmployeeList(new ArrayList<>());
 
         String star = getIntent().getStringExtra("star");
         if (star != null && !star.isEmpty()) {
@@ -56,18 +40,6 @@ public class EmployeesListActivity extends AppCompatActivity {
         } else {
             loadEmployeeData();
         }
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override public boolean onQueryTextSubmit(String query) {
-                adapter.filter(query);
-                return true;
-            }
-
-            @Override public boolean onQueryTextChange(String newText) {
-                adapter.filter(newText);
-                return true;
-            }
-        });
     }
 
     private void loadEmployeeData() {
@@ -82,8 +54,7 @@ public class EmployeesListActivity extends AppCompatActivity {
                     allEmployees = response.body().getResult();
                     if (allEmployees == null) allEmployees = new ArrayList<>();
                     Collections.sort(allEmployees, Comparator.comparing(EmployeeModel::getName, String.CASE_INSENSITIVE_ORDER));
-                    adapter = new EmployeeAdapter(EmployeesListActivity.this, allEmployees);
-                    recyclerView.setAdapter(adapter);
+                    updateEmployeeData(allEmployees);
                 } else {
                     Toast.makeText(EmployeesListActivity.this, "Eroare la răspunsul serverului", Toast.LENGTH_SHORT).show();
                 }
@@ -108,8 +79,7 @@ public class EmployeesListActivity extends AppCompatActivity {
                             List<EmployeeModel> list = response.body().getResult();
                             if (list == null) list = new ArrayList<>();
                             Collections.sort(list, Comparator.comparing(EmployeeModel::getName, String.CASE_INSENSITIVE_ORDER));
-                            adapter = new EmployeeAdapter(EmployeesListActivity.this, list);
-                            recyclerView.setAdapter(adapter);
+                            updateEmployeeData(list);
                         }
                     }
 

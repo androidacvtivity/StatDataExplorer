@@ -5,13 +5,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bancusoft.statdataexplorer.R;
-import com.bancusoft.statdataexplorer.adapters.EmployeeAdapter;
 import com.bancusoft.statdataexplorer.models.EmployeeModel;
 import com.bancusoft.statdataexplorer.network.ApiUtils;
 import com.bancusoft.statdataexplorer.network.RestApi;
@@ -26,13 +21,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EmployeesByStructActivity extends AppCompatActivity {
+public class EmployeesByStructActivity extends BaseEmployeesActivity {
 
     private static final String TAG = EmployeesByStructActivity.class.getSimpleName();
 
-    private RecyclerView recyclerView;
-    private SearchView searchView;
-    private EmployeeAdapter adapter;
     private RestApi api;
     private String type, name;
 
@@ -44,25 +36,8 @@ public class EmployeesByStructActivity extends AppCompatActivity {
         type = getIntent().getStringExtra("type");
         name = getIntent().getStringExtra("name");
 
-        recyclerView = findViewById(R.id.recyclerViewEmployees);
-        searchView = findViewById(R.id.searchViewEmployees);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new EmployeeAdapter(this, new ArrayList<>());
-        recyclerView.setAdapter(adapter);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                adapter.filter(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.filter(newText);
-                return true;
-            }
-        });
+        // initialize recycler view and search functionality
+        setupEmployeeList(new ArrayList<>());
 
 //         // Click pe angajat
 //        adapter.setOnItemClickListener(employee -> {
@@ -86,7 +61,7 @@ public class EmployeesByStructActivity extends AppCompatActivity {
                     if (result != null) {
                         if (!result.isEmpty()) {
                             Collections.sort(result, Comparator.comparing(EmployeeModel::getName, String.CASE_INSENSITIVE_ORDER));
-                            adapter.updateData(result);
+                            updateEmployeeData(result);
                         } else {
                             Toast.makeText(EmployeesByStructActivity.this, "Nu s-au găsit angajați!", Toast.LENGTH_SHORT).show();
                         }
