@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="24dp"
-                android:text="📦 Lista Companiilor"
+                android:text="📦 Date din Registrul de stat al unităţilor de drept privind întreprinderile înregistrate în Republica Moldova"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="24dp"
-                android:text="👨‍💼 Lista Angajaților"
+                android:text="👨‍💼 Lista Angajaților - BNS"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>

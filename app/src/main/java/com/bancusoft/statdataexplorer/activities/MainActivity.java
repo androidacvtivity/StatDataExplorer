@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Card: Lista companiilor
         binding.cardViewCompanies.setOnClickListener(v -> {
-            Toast.makeText(this, "Se încarcă companiile...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Se încarcă unităţile de drept...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, ScientistsListActivity.class));
         });
 

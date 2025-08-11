@@ -63,7 +63,7 @@ public class ScientistsListActivity extends AppCompatActivity {
     }
 
     private void searchCompany(String query) {
-        api.searchvw("GET_PAGINATED_SEARCHVW", query, "0", "10").enqueue(new Callback<ResponseModel>() {
+        api.searchvw("GET_PAGINATED_SEARCHVW", query, "0", "20000").enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
