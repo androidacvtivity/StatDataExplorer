@@ -1,4 +1,5 @@
-Analizeaza codul - trebuie da adaugat optinea
+Card Alpha → EmployeesListActivity folosește layout-ul activity_employees_list.xml, compus din SearchView și RecyclerView pentru listarea angajaților
 
-ca
-In activity_employees_by_struct.xml sa fie optiunea da cautare ca in activity_employees_stars.xml -
+In final se dschide  -- activity_employees_list.xml
+
+
