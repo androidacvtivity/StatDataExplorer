@@ -30,7 +30,7 @@ public class StructBnsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_struct_bns);
-        Toast.makeText(this, "StructBnsActivity a pornit!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "StructBnsActivity has started!!", Toast.LENGTH_SHORT).show();
 
         recyclerView = findViewById(R.id.recyclerViewStructBns);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
