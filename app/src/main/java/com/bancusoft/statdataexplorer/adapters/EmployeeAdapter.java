@@ -80,9 +80,10 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         } else {
             for (EmployeeModel item : originalList) {
                 if ((item.getName() != null && item.getName().toLowerCase().contains(searchQuery)) ||
-                        (item.getEmail() != null && item.getEmail().toLowerCase().contains(searchQuery)) ||
-                        (item.getPhone() != null && item.getPhone().toLowerCase().contains(searchQuery)) ||
-                        (item.getServiciu() != null && item.getServiciu().toLowerCase().contains(searchQuery))) {
+//                        (item.getEmail() != null && item.getEmail().toLowerCase().contains(searchQuery)) ||
+                        (item.getPhonemobil() != null && item.getPhonemobil().toLowerCase().contains(searchQuery))
+//                        (item.getServiciu() != null && item.getServiciu().toLowerCase().contains(searchQuery))
+                ) {
                     employees.add(item);
                 }
             }
