@@ -18,6 +18,8 @@ import com.bancusoft.statdataexplorer.network.ApiUtils;
 import com.bancusoft.statdataexplorer.network.RestApi;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -78,6 +80,8 @@ public class EmployeesListActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseModelEmployee> call, Response<ResponseModelEmployee> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     allEmployees = response.body().getResult();
+                    if (allEmployees == null) allEmployees = new ArrayList<>();
+                    Collections.sort(allEmployees, Comparator.comparing(EmployeeModel::getName, String.CASE_INSENSITIVE_ORDER));
                     adapter = new EmployeeAdapter(EmployeesListActivity.this, allEmployees);
                     recyclerView.setAdapter(adapter);
                 } else {
@@ -103,6 +107,7 @@ public class EmployeesListActivity extends AppCompatActivity {
                         if (response.isSuccessful() && response.body() != null) {
                             List<EmployeeModel> list = response.body().getResult();
                             if (list == null) list = new ArrayList<>();
+                            Collections.sort(list, Comparator.comparing(EmployeeModel::getName, String.CASE_INSENSITIVE_ORDER));
                             adapter = new EmployeeAdapter(EmployeesListActivity.this, list);
                             recyclerView.setAdapter(adapter);
                         }
