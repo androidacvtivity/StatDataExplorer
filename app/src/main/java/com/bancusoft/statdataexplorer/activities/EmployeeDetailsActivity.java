@@ -11,13 +11,13 @@ import com.bancusoft.statdataexplorer.models.EmployeeModel;
 public class EmployeeDetailsActivity extends AppCompatActivity {
 
     private EmployeeModel emp;
-
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_details);
 
-        @SuppressWarnings("deprecation")
+
         emp = (EmployeeModel) getIntent().getSerializableExtra("employee");
 
         if (emp == null) return;
