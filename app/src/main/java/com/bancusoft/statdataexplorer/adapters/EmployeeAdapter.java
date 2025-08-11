@@ -6,6 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +44,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         EmployeeModel e = employees.get(position);
 
-        holder.txtName.setText(e.getName());
+        holder.txtName.setText(getHighlightedText(e.getName(), searchQuery, Color.GREEN));
         holder.txtDescription.setText(e.getDescription());
         holder.txtGalaxy.setText(e.getGalaxy());
         holder.txtStar.setText(e.getStar());
@@ -52,7 +56,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         holder.txtEmail.setText(e.getEmail());
         holder.txtPersonalInfo.setText(e.getPersonalinfo());
         holder.txtFormName.setText(e.getFormname());
-        holder.txtPhoneMobil.setText(e.getPhonemobil());
+        holder.txtPhoneMobil.setText(getHighlightedText(e.getPhonemobil(), searchQuery, Color.CYAN));
         holder.txtFloor.setText(e.getFloor());
         holder.txtOffice.setText(e.getOffice());
         holder.txtNotice.setText(e.getNotice());
@@ -96,6 +100,19 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         this.originalList.clear();
         this.originalList.addAll(newEmployees);
         filter(searchQuery);
+    }
+
+    private Spannable getHighlightedText(String original, String query, int color) {
+        if (original == null) return new SpannableString("");
+        Spannable spannable = new SpannableString(original);
+        if (query == null || query.isEmpty()) return spannable;
+
+        String lower = original.toLowerCase();
+        int start = lower.indexOf(query);
+        if (start >= 0) {
+            spannable.setSpan(new ForegroundColorSpan(color), start, start + query.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return spannable;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
