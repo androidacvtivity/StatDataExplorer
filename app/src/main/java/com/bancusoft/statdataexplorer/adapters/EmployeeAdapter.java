@@ -102,6 +102,13 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         filter(searchQuery);
     }
 
+    /**
+     * Return a copy of the full employee list (unfiltered).
+     */
+    public List<EmployeeModel> getAllEmployees() {
+        return new ArrayList<>(originalList);
+    }
+
     private Spannable getHighlightedText(String original, String query, int color) {
         if (original == null) return new SpannableString("");
         Spannable spannable = new SpannableString(original);
