@@ -16,7 +16,7 @@
         android:id="@+id/recyclerViewEmployees"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/extra_large_spacing"
+        android:layout_marginTop="@dimen/extra_extra_large_spacing"
         android:scrollbars="vertical" />
 
 </LinearLayout>

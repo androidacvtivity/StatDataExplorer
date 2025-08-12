@@ -2,4 +2,5 @@
     <dimen name="default_spacing">12dp</dimen>
     <dimen name="large_spacing">24dp</dimen>
     <dimen name="extra_large_spacing">32dp</dimen>
+    <dimen name="extra_extra_large_spacing">48dp</dimen>
 </resources>

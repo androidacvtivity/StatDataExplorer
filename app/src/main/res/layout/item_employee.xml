@@ -18,8 +18,22 @@
         <TextView android:id="@+id/txtServiciu" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Serviciu" />
         <TextView android:id="@+id/txtSectia" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Secția" />
         <TextView android:id="@+id/txtDepart" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Departament" />
-        <TextView android:id="@+id/txtPhone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Telefon" />
-        <TextView android:id="@+id/txtPhoneInternal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Telefon Intern" />
+        <TextView
+            android:id="@+id/txtPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telefon"
+            android:textColor="@color/link_blue"
+            android:autoLink="phone"
+            android:linksClickable="true" />
+        <TextView
+            android:id="@+id/txtPhoneInternal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telefon Intern"
+            android:textColor="@color/link_blue"
+            android:autoLink="phone"
+            android:linksClickable="true" />
         <TextView
             android:id="@+id/txtEmail"
             android:layout_width="wrap_content"
@@ -30,7 +44,14 @@
             android:linksClickable="true" />
         <TextView android:id="@+id/txtPersonalInfo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Info Personal" />
         <TextView android:id="@+id/txtFormName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Formular" />
-        <TextView android:id="@+id/txtPhoneMobil" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Telefon Mobil" />
+        <TextView
+            android:id="@+id/txtPhoneMobil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telefon Mobil"
+            android:textColor="@color/link_blue"
+            android:autoLink="phone"
+            android:linksClickable="true" />
         <TextView android:id="@+id/txtFloor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Etaj" />
         <TextView android:id="@+id/txtOffice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Birou" />
         <TextView android:id="@+id/txtNotice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Notă" />
