@@ -84,12 +84,37 @@ public class EmployeesByStructActivity extends BaseEmployeesActivity {
         }
         for (EmployeeModel e : employees) {
             sb.append(e.getName());
-            if (e.getPhone() != null && !e.getPhone().isEmpty()) {
-                sb.append(" - ").append(e.getPhone());
+
+            if (e.getStar() != null && !e.getStar().isEmpty()) {
+                sb.append(" - ").append(e.getStar());
             }
+
+            if (e.getDepart() != null && !e.getDepart().isEmpty()) {
+                sb.append(" - ").append(e.getDepart());
+            }
+
+            if (e.getSectia() != null && !e.getSectia().isEmpty()) {
+                sb.append(" - ").append(e.getSectia());
+            }
+
+            if (e.getServiciu() != null && !e.getServiciu().isEmpty()) {
+                sb.append(" - ").append(e.getServiciu());
+            }
+
+            if (e.getGalaxy() != null && !e.getGalaxy().isEmpty()) {
+                sb.append(" - ").append(e.getGalaxy());
+            }
+            if (e.getPhonemobil() != null && !e.getPhonemobil().isEmpty()) {
+                sb.append(" - ").append(e.getPhonemobil());
+            }
+
             if (e.getEmail() != null && !e.getEmail().isEmpty()) {
                 sb.append(" - ").append(e.getEmail());
             }
+
+
+            sb.append("\n");
+            sb.append("\n");
             sb.append("\n");
         }
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
