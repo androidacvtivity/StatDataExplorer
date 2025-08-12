@@ -2,6 +2,7 @@ package com.bancusoft.statdataexplorer.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bancusoft.statdataexplorer.R;
@@ -54,6 +56,12 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         holder.txtPhone.setText(e.getPhone());
         holder.txtPhoneInternal.setText(e.getPhoneinternal());
         holder.txtEmail.setText(e.getEmail());
+        holder.txtEmail.setTextColor(ContextCompat.getColor(context, R.color.link_blue));
+        holder.txtEmail.setOnClickListener(v -> {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:" + e.getEmail()));
+            context.startActivity(emailIntent);
+        });
         holder.txtPersonalInfo.setText(e.getPersonalinfo());
         holder.txtFormName.setText(e.getFormname());
         holder.txtPhoneMobil.setText(getHighlightedText(e.getPhonemobil(), searchQuery, Color.CYAN));
