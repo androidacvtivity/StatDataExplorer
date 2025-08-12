@@ -30,32 +30,38 @@
         <TextView android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descriere" />
+            android:text="Descriere"
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvGalaxy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Galaxy" />
+            android:text="Galaxy"
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvStar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Star" />
+            android:text="Star"
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvServiciu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Serviciu" />
+            android:text="Serviciu"
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvSectia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Secția" />
+            android:text="Secția"
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvDepart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Departament" />
+            android:text="Departament"
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvPhone"
             android:layout_width="match_parent"
@@ -64,14 +70,14 @@
             android:autoLink="phone"
             android:linksClickable="true"
             android:paddingVertical="8dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvPhoneInternal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tel. Intern"
             android:paddingVertical="8dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvPhonemobil"
             android:layout_width="match_parent"
@@ -80,32 +86,40 @@
             android:autoLink="phone"
             android:linksClickable="true"
             android:paddingVertical="8dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email" />
+            android:text="Email"
+            android:autoLink="email"
+            android:linksClickable="true"
+            android:paddingVertical="8dp"
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvPersonalinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Info personală" />
+            android:text="Info personală"
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvFormname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Formular" />
+            android:text="Formular"
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvFloor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Etaj" />
+            android:text="Etaj"
+            android:layout_marginTop="8dp" />
 
         <TextView android:id="@+id/tvOffice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Birou" />
+            android:text="Birou"
+            android:layout_marginTop="8dp" />
 
         <Button
             android:id="@+id/btnShare"
