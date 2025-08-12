@@ -60,17 +60,27 @@
         <TextView android:id="@+id/tvPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Telefon" />
+            android:text="Telefon"
+            android:autoLink="phone"
+            android:linksClickable="true"
+            android:paddingVertical="8dp"
+            android:layout_marginBottom="8dp" />
 
         <TextView android:id="@+id/tvPhoneInternal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tel. Intern" />
+            android:text="Tel. Intern"
+            android:paddingVertical="8dp"
+            android:layout_marginBottom="8dp" />
 
         <TextView android:id="@+id/tvPhonemobil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Telefon Mobil" />
+            android:text="Telefon Mobil"
+            android:autoLink="phone"
+            android:linksClickable="true"
+            android:paddingVertical="8dp"
+            android:layout_marginBottom="8dp" />
 
         <TextView android:id="@+id/tvEmail"
             android:layout_width="match_parent"
