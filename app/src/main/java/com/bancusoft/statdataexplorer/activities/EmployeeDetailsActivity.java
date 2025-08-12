@@ -42,21 +42,21 @@ public class EmployeeDetailsActivity extends AppCompatActivity {
         Button shareButton = findViewById(R.id.btnShare);
         shareButton.setOnClickListener(v -> {
             StringBuilder details = new StringBuilder();
-            details.append("Name: ").append(emp.getName()).append('\n');
-            details.append("Description: ").append(emp.getDescription()).append('\n');
-            details.append("Galaxy: ").append(emp.getGalaxy()).append('\n');
-            details.append("Star: ").append(emp.getStar()).append('\n');
+            details.append("Nume, Prenume: ").append(emp.getName()).append('\n');
+            details.append("Adresa: ").append(emp.getDescription()).append('\n');
+            details.append("Funcția: ").append(emp.getGalaxy()).append('\n');
+            details.append("Direcția Generală: ").append(emp.getStar()).append('\n');
             details.append("Serviciu: ").append(emp.getServiciu()).append('\n');
-            details.append("Sectia: ").append(emp.getSectia()).append('\n');
-            details.append("Departament: ").append(emp.getDepart()).append('\n');
-            details.append("Phone: ").append(emp.getPhone()).append('\n');
-            details.append("Internal Phone: ").append(emp.getPhoneinternal()).append('\n');
-            details.append("Mobile: ").append(emp.getPhonemobil()).append('\n');
+            details.append("Secția: ").append(emp.getSectia()).append('\n');
+            details.append("Direcția: ").append(emp.getDepart()).append('\n');
+            details.append("Telefon fix: ").append(emp.getPhone()).append('\n');
+            details.append("Telefon intern: ").append(emp.getPhoneinternal()).append('\n');
+            details.append("Telefon Mobil: ").append(emp.getPhonemobil()).append('\n');
             details.append("Email: ").append(emp.getEmail()).append('\n');
-            details.append("Personal Info: ").append(emp.getPersonalinfo()).append('\n');
-            details.append("Form Name: ").append(emp.getFormname()).append('\n');
-            details.append("Floor: ").append(emp.getFloor()).append('\n');
-            details.append("Office: ").append(emp.getOffice());
+            details.append("Info: ").append(emp.getPersonalinfo()).append('\n');
+            details.append("Denumirea raportului: ").append(emp.getFormname()).append('\n');
+            details.append("Etajul: ").append(emp.getFloor()).append('\n');
+            details.append("Oficiul: ").append(emp.getOffice());
 
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
