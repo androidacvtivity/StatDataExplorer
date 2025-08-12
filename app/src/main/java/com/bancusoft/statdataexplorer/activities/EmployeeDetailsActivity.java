@@ -33,7 +33,8 @@ public class EmployeeDetailsActivity extends AppCompatActivity {
         TextView tvPhone = findViewById(R.id.tvPhone);
         tvPhone.setText(emp.getPhone());
         ((TextView) findViewById(R.id.tvPhoneInternal)).setText(emp.getPhoneinternal());
-        ((TextView) findViewById(R.id.tvEmail)).setText(emp.getEmail());
+        TextView tvEmail = findViewById(R.id.tvEmail);
+        tvEmail.setText(emp.getEmail());
         ((TextView) findViewById(R.id.tvPersonalinfo)).setText(emp.getPersonalinfo());
         ((TextView) findViewById(R.id.tvFormname)).setText(emp.getFormname());
         TextView tvPhonemobil = findViewById(R.id.tvPhonemobil);
@@ -52,6 +53,12 @@ public class EmployeeDetailsActivity extends AppCompatActivity {
             String number = tvPhonemobil.getText().toString();
             Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
             startActivity(dial);
+        });
+
+        tvEmail.setOnClickListener(v -> {
+            String email = tvEmail.getText().toString();
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + email));
+            startActivity(Intent.createChooser(emailIntent, "Send email"));
         });
 
         Button shareButton = findViewById(R.id.btnShare);
