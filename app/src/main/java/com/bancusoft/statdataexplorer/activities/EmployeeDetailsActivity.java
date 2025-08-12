@@ -42,16 +42,16 @@ public class EmployeeDetailsActivity extends AppCompatActivity {
         Button shareButton = findViewById(R.id.btnShare);
         shareButton.setOnClickListener(v -> {
             StringBuilder details = new StringBuilder();
-            details.append("Name, Prenume: ").append(emp.getName()).append('\n');
+            details.append("Nume, Prenume: ").append(emp.getName()).append('\n');
             details.append("Adresa: ").append(emp.getDescription()).append('\n');
             details.append("Funcția: ").append(emp.getGalaxy()).append('\n');
             details.append("Direcția Generală: ").append(emp.getStar()).append('\n');
             details.append("Serviciu: ").append(emp.getServiciu()).append('\n');
-            details.append("Sectia: ").append(emp.getSectia()).append('\n');
+            details.append("Secția: ").append(emp.getSectia()).append('\n');
             details.append("Direcția: ").append(emp.getDepart()).append('\n');
             details.append("Telefon fix: ").append(emp.getPhone()).append('\n');
             details.append("Telefon intern: ").append(emp.getPhoneinternal()).append('\n');
-            details.append("Telefon Mobile: ").append(emp.getPhonemobil()).append('\n');
+            details.append("Telefon Mobil: ").append(emp.getPhonemobil()).append('\n');
             details.append("Email: ").append(emp.getEmail()).append('\n');
             details.append("Info: ").append(emp.getPersonalinfo()).append('\n');
             details.append("Denumirea raportului: ").append(emp.getFormname()).append('\n');

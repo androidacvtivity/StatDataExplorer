@@ -1,6 +1,36 @@
-Card Alpha → EmployeesListActivity folosește layout-ul activity_employees_list.xml, compus din SearchView și RecyclerView pentru listarea angajaților
+Acum cand se face share - se afiseaza urmatorul
 
-In final se dschide  -- activity_employees_list.xml
+Name: BANCU Vitalie
+Description: BNS str. Grenoble, 106, MD-2019 Chisinau, Republica Moldova
+Galaxy: Programator principal
+Star: Direcția generală tehnologii informaționale
+Serviciu: empty field
+Sectia: empty field
+Departament: Directia proiectare aplicatii
+Phone: +37322403021
+Internal Phone: 121
+Mobile: +37367770604
+Email: vitalie.bancu@statistica.gov.md
+Personal Info: Biroul National de Statistica (BNS) este autoritate administrativa independenta institutional si profesional, creata pe lînga Guvern în scopul coordonarii sistemului statistic national privind dezvoltarea si producerea statisticii oficiale.
+Form Name: empty field
+Floor: 1
+Office: 103
 
 
-De ce la Card Alpha - este diferit de restul 2
+De modificat codul sa se afiseze asa
+
+Name, Prenume: BANCU Vitalie
+Adresa: BNS str. Grenoble, 106, MD-2019 Chisinau, Republica Moldova
+Funcția: Programator principal
+Direcția Generală: Direcția generală tehnologii informaționale
+Serviciu: empty field
+Sectia: empty field
+Direcția: Directia proiectare aplicatii
+Telefon fix: +37322403021
+Telefon intern: 121
+Telefon Mobile: +37367770604
+Email: vitalie.bancu@statistica.gov.md
+Info: Biroul National de Statistica (BNS) este autoritate administrativa independenta institutional si profesional, creata pe lînga Guvern în scopul coordonarii sistemului statistic national privind dezvoltarea si producerea statisticii oficiale.
+Denumirea raportului: empty field
+Etajul: 1
+Oficiul: 103
