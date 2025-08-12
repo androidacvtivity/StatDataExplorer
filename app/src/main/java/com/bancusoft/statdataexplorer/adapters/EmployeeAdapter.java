@@ -53,8 +53,23 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         holder.txtServiciu.setText(e.getServiciu());
         holder.txtSectia.setText(e.getSectia());
         holder.txtDepart.setText(e.getDepart());
+
+        holder.txtPhone.setTextColor(ContextCompat.getColor(context, R.color.link_blue));
         holder.txtPhone.setText(e.getPhone());
+        holder.txtPhone.setOnClickListener(v -> {
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            dialIntent.setData(Uri.parse("tel:" + e.getPhone()));
+            context.startActivity(dialIntent);
+        });
+
+        holder.txtPhoneInternal.setTextColor(ContextCompat.getColor(context, R.color.link_blue));
         holder.txtPhoneInternal.setText(e.getPhoneinternal());
+        holder.txtPhoneInternal.setOnClickListener(v -> {
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            dialIntent.setData(Uri.parse("tel:" + e.getPhoneinternal()));
+            context.startActivity(dialIntent);
+        });
+
         holder.txtEmail.setText(e.getEmail());
         holder.txtEmail.setTextColor(ContextCompat.getColor(context, R.color.link_blue));
         holder.txtEmail.setOnClickListener(v -> {
@@ -62,9 +77,18 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
             emailIntent.setData(Uri.parse("mailto:" + e.getEmail()));
             context.startActivity(emailIntent);
         });
+
         holder.txtPersonalInfo.setText(e.getPersonalinfo());
         holder.txtFormName.setText(e.getFormname());
+
+        holder.txtPhoneMobil.setTextColor(ContextCompat.getColor(context, R.color.link_blue));
         holder.txtPhoneMobil.setText(getHighlightedText(e.getPhonemobil(), searchQuery, Color.CYAN));
+        holder.txtPhoneMobil.setOnClickListener(v -> {
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            dialIntent.setData(Uri.parse("tel:" + e.getPhonemobil()));
+            context.startActivity(dialIntent);
+        });
+
         holder.txtFloor.setText(e.getFloor());
         holder.txtOffice.setText(e.getOffice());
         holder.txtNotice.setText(e.getNotice());
