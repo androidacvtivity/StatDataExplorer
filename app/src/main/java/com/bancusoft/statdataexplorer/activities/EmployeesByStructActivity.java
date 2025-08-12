@@ -1,7 +1,10 @@
 package com.bancusoft.statdataexplorer.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -32,6 +35,7 @@ public class EmployeesByStructActivity extends BaseEmployeesActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees_by_struct);
+        setSupportActionBar(findViewById(R.id.toolbarEmployeesByStruct));
 
         type = getIntent().getStringExtra("type");
         name = getIntent().getStringExtra("name");
@@ -50,6 +54,73 @@ public class EmployeesByStructActivity extends BaseEmployeesActivity {
 
         // Load employees for the selected structure
         loadEmployees();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_employees_by_struct, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_share_employees) {
+            shareEmployees();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void shareEmployees() {
+        if (adapter == null) return;
+        List<EmployeeModel> employees = adapter.getAllEmployees();
+        if (employees.isEmpty()) {
+            Toast.makeText(this, "No employees to share", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        if (name != null) {
+            sb.append(name).append("\n\n");
+        }
+        for (EmployeeModel e : employees) {
+            sb.append(e.getName());
+
+            if (e.getStar() != null && !e.getStar().isEmpty()) {
+                sb.append(" - ").append(e.getStar());
+            }
+
+            if (e.getDepart() != null && !e.getDepart().isEmpty()) {
+                sb.append(" - ").append(e.getDepart());
+            }
+
+            if (e.getSectia() != null && !e.getSectia().isEmpty()) {
+                sb.append(" - ").append(e.getSectia());
+            }
+
+            if (e.getServiciu() != null && !e.getServiciu().isEmpty()) {
+                sb.append(" - ").append(e.getServiciu());
+            }
+
+            if (e.getGalaxy() != null && !e.getGalaxy().isEmpty()) {
+                sb.append(" - ").append(e.getGalaxy());
+            }
+            if (e.getPhonemobil() != null && !e.getPhonemobil().isEmpty()) {
+                sb.append(" - ").append(e.getPhonemobil());
+            }
+
+            if (e.getEmail() != null && !e.getEmail().isEmpty()) {
+                sb.append(" - ").append(e.getEmail());
+            }
+
+
+            sb.append("\n");
+            sb.append("\n");
+            sb.append("\n");
+        }
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, sb.toString());
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_employees)));
     }
 
     private void loadEmployees() {
