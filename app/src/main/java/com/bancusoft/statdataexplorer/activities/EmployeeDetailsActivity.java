@@ -1,6 +1,7 @@
 package com.bancusoft.statdataexplorer.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,15 +30,29 @@ public class EmployeeDetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tvServiciu)).setText(emp.getServiciu());
         ((TextView) findViewById(R.id.tvSectia)).setText(emp.getSectia());
         ((TextView) findViewById(R.id.tvDepart)).setText(emp.getDepart());
-        ((TextView) findViewById(R.id.tvPhone)).setText(emp.getPhone());
+        TextView tvPhone = findViewById(R.id.tvPhone);
+        tvPhone.setText(emp.getPhone());
         ((TextView) findViewById(R.id.tvPhoneInternal)).setText(emp.getPhoneinternal());
         ((TextView) findViewById(R.id.tvEmail)).setText(emp.getEmail());
         ((TextView) findViewById(R.id.tvPersonalinfo)).setText(emp.getPersonalinfo());
         ((TextView) findViewById(R.id.tvFormname)).setText(emp.getFormname());
-        ((TextView) findViewById(R.id.tvPhonemobil)).setText(emp.getPhonemobil());
+        TextView tvPhonemobil = findViewById(R.id.tvPhonemobil);
+        tvPhonemobil.setText(emp.getPhonemobil());
         ((TextView) findViewById(R.id.tvFloor)).setText(emp.getFloor());
         ((TextView) findViewById(R.id.tvOffice)).setText(emp.getOffice());
 //        ((TextView) findViewById(R.id.tvNotice)).setText(emp.getNotice());
+
+        tvPhone.setOnClickListener(v -> {
+            String number = tvPhone.getText().toString();
+            Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
+            startActivity(dial);
+        });
+
+        tvPhonemobil.setOnClickListener(v -> {
+            String number = tvPhonemobil.getText().toString();
+            Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
+            startActivity(dial);
+        });
 
         Button shareButton = findViewById(R.id.btnShare);
         shareButton.setOnClickListener(v -> {
