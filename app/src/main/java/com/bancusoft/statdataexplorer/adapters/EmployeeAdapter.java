@@ -65,6 +65,14 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         holder.txtPersonalInfo.setText(e.getPersonalinfo());
         holder.txtFormName.setText(e.getFormname());
         holder.txtPhoneMobil.setText(getHighlightedText(e.getPhonemobil(), searchQuery, Color.CYAN));
+        holder.txtPhoneMobil.setTextColor(ContextCompat.getColor(context, R.color.link_blue));
+        holder.txtPhoneMobil.setOnClickListener(v -> {
+            if (e.getPhonemobil() != null && !e.getPhonemobil().isEmpty()) {
+                Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+                dialIntent.setData(Uri.parse("tel:" + e.getPhonemobil()));
+                context.startActivity(dialIntent);
+            }
+        });
         holder.txtFloor.setText(e.getFloor());
         holder.txtOffice.setText(e.getOffice());
         holder.txtNotice.setText(e.getNotice());
