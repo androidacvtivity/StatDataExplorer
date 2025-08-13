@@ -22,18 +22,12 @@
             android:id="@+id/txtPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Telefon"
-            android:textColor="@color/link_blue"
-            android:autoLink="phone"
-            android:linksClickable="true" />
+            android:text="Telefon" />
         <TextView
             android:id="@+id/txtPhoneInternal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Telefon Intern"
-            android:textColor="@color/link_blue"
-            android:autoLink="phone"
-            android:linksClickable="true" />
+            android:text="Telefon Intern" />
         <TextView
             android:id="@+id/txtEmail"
             android:layout_width="wrap_content"
