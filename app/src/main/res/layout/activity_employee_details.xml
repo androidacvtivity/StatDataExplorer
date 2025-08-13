@@ -67,6 +67,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Telefon"
+            android:textColor="@color/link_blue"
+            android:autoLink="phone"
+            android:linksClickable="true"
             android:paddingVertical="8dp"
             android:layout_marginTop="8dp" />
 
@@ -91,6 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email"
+            android:textColor="@color/link_blue"
             android:autoLink="email"
             android:linksClickable="true"
             android:paddingVertical="8dp"
